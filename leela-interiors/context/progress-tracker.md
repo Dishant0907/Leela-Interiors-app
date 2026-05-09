@@ -4,14 +4,16 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-* Feature 02: App Shell & Auth — not started
+* Feature 03: Database Schema — not started
 
 ## Current Goal
 
-* Feature 02: App Shell & Auth (02-app-shell-auth.md)
+* Feature 03: Database Schema (03-database-schema.md)
 
 ## Completed
 
+* Feature 02 — App Shell & Auth (02-app-shell-auth.md): lib/supabase/client.ts (browser client), lib/supabase/server.ts (server client), proxy.ts (session refresh + auth redirects — Next.js 16 uses proxy.ts not middleware.ts), app/(auth)/layout.tsx, app/(auth)/login/page.tsx, components/layout/sidebar.tsx (dark sidebar, Lucide icons, active route highlight, sign out), app/(app)/layout.tsx (240px fixed sidebar shell), app/(app)/dashboard/page.tsx (placeholder). `npm run build` passes.
+  * Note: .env.local keys exist but Supabase URL/anon key values are empty — fill before testing auth
 * Feature 01 — Design System (01-design-system.md): deps installed, shadcn/ui initialised (Tailwind v4), all 10 components added, globals.css design tokens defined, lib/utils.ts cn() helper, .env.local created
 * Feature 01 (old spec 01-project-setup-auth.md) — project setup portion: Next.js scaffolded, all deps installed (@supabase/supabase-js, @supabase/ssr, lucide-react, zod), .env.local keys present, CSS color tokens in globals.css
 
@@ -20,10 +22,6 @@ Update this file whenever the current phase, active feature, or implementation s
 * None.
 
 ## Next Up
-
-* Feature 02: App Shell & Auth (02-app-shell-auth.md) ← **CURRENT** — auth layer not started
-  * Missing: lib/supabase/client.ts, lib/supabase/server.ts, middleware.ts, app/(auth)/login/page.tsx, app/(app)/layout.tsx with sidebar
-  * Note: .env.local keys exist but Supabase URL/anon key values are empty — fill before testing auth
 * Feature 03: Database Schema (03-database-schema.md)
 * Feature 04: Costing Utilities
 * Feature 05: Costing Form
