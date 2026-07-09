@@ -14,9 +14,12 @@ export default async function GstReportPage({
   const month = Number(monthStr) || now.getMonth() + 1
   const year = Number(yearStr) || now.getFullYear()
 
-  // Build date range for the selected month
-  const start = new Date(year, month - 1, 1).toISOString()
-  const end = new Date(year, month, 1).toISOString()
+  // Build date range for the selected month (invoice_date is a plain date column — no timezone conversion)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const nextMonth = month === 12 ? 1 : month + 1
+  const nextYear = month === 12 ? year + 1 : year
+  const start = `${year}-${pad(month)}-01`
+  const end = `${nextYear}-${pad(nextMonth)}-01`
 
   const supabase = await createClient()
 
@@ -25,7 +28,7 @@ export default async function GstReportPage({
     .select(`
       id,
       invoice_number,
-      created_at,
+      invoice_date,
       client_gstin,
       kitchen_total,
       accessories_total,
@@ -42,14 +45,14 @@ export default async function GstReportPage({
       grand_total,
       costings(client_name)
     `)
-    .gte('created_at', start)
-    .lt('created_at', end)
-    .order('created_at', { ascending: true })
+    .gte('invoice_date', start)
+    .lt('invoice_date', end)
+    .order('invoice_date', { ascending: true })
 
   const rows = (invoices ?? []).map(inv => ({
     id: inv.id,
     invoice_number: inv.invoice_number,
-    created_at: inv.created_at ?? '',
+    invoice_date: inv.invoice_date ?? '',
     client_name: (inv.costings as unknown as { client_name: string | null } | null)?.client_name ?? null,
     client_gstin: inv.client_gstin ?? null,
     kitchen_total: Number(inv.kitchen_total),

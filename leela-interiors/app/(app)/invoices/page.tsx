@@ -9,8 +9,8 @@ export default async function InvoicesPage() {
 
   const { data: invoices } = await supabase
     .from('invoices')
-    .select('id, invoice_number, grand_total, status, created_at, costings(client_name)')
-    .order('created_at', { ascending: false })
+    .select('id, invoice_number, grand_total, status, invoice_date, costings(client_name)')
+    .order('invoice_date', { ascending: false })
 
   return (
     <div className="p-6">
@@ -76,7 +76,7 @@ export default async function InvoicesPage() {
                     </td>
                     <td className="px-4 py-3 text-text-muted">
                       <Link href={`/invoices/${inv.id}`} className="block">
-                        {inv.created_at ? formatDate(inv.created_at) : '—'}
+                        {inv.invoice_date ? formatDate(inv.invoice_date) : '—'}
                       </Link>
                     </td>
                     <td className="px-4 py-3">

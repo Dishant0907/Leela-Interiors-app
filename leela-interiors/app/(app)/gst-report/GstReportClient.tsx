@@ -6,7 +6,7 @@ import { formatINR } from '@/lib/format'
 type InvoiceRow = {
   id: string
   invoice_number: string
-  created_at: string
+  invoice_date: string
   client_name: string | null
   client_gstin: string | null
   kitchen_total: number
@@ -67,7 +67,7 @@ export function GstReportClient({ invoices, month, year }: Props) {
       const taxable = i.kitchen_total + i.accessories_total + i.hardware_total + i.civil_total
       return [
         i.invoice_number,
-        formatShortDate(i.created_at),
+        formatShortDate(i.invoice_date),
         i.client_name ?? '',
         i.client_gstin ?? '',
         taxable.toFixed(2),
@@ -164,7 +164,7 @@ export function GstReportClient({ invoices, month, year }: Props) {
                   return (
                     <tr key={inv.id} className="hover:bg-bg-surface/50 transition-colors">
                       <td className="px-4 py-3 font-medium text-text-primary whitespace-nowrap">{inv.invoice_number}</td>
-                      <td className="px-4 py-3 text-text-muted whitespace-nowrap">{formatShortDate(inv.created_at)}</td>
+                      <td className="px-4 py-3 text-text-muted whitespace-nowrap">{formatShortDate(inv.invoice_date)}</td>
                       <td className="px-4 py-3 text-text-primary">{inv.client_name ?? '—'}</td>
                       <td className="px-4 py-3 text-text-muted font-mono text-xs">{inv.client_gstin ?? '—'}</td>
                       <td className="px-4 py-3 text-right tabular-nums text-text-primary">{formatINR(taxable)}</td>

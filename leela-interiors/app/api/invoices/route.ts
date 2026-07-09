@@ -61,6 +61,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         costing_id: costingId,
         invoice_number: invoiceNumber,
+        invoice_date: costing.costing_date,
         status: 'pending',
         client_id: costing.client_id,
         client_gstin: costing.client_gstin,

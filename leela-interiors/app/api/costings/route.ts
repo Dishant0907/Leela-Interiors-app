@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
         user_id: user.id,
         client_id: clientId,
         costing_number: costingNumber,
+        costing_date: body.costingDate || new Date().toISOString().slice(0, 10),
         status: 'saved',
         client_name: body.clientName || '',
         client_phone: body.clientPhone || null,

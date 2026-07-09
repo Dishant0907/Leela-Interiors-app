@@ -70,6 +70,7 @@ export async function GET(
   const lineItems = costing.line_items as LineItems
 
   const formState: CostingFormState = {
+    costingDate: costing.costing_date ?? undefined,
     clientName: costing.client_name ?? '',
     clientPhone: costing.client_phone ?? '',
     clientAddress: costing.client_address ?? '',
@@ -143,6 +144,7 @@ export async function PUT(
   const { error: updateError } = await supabase
     .from('costings')
     .update({
+      costing_date: body.costingDate || undefined,
       client_name: body.clientName || '',
       client_phone: body.clientPhone || null,
       client_address: body.clientAddress || null,

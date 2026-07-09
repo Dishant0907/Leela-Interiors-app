@@ -13,6 +13,7 @@ export interface LineItem {
 
 export interface CostingFormState {
   clientId?: string
+  costingDate?: string
   clientName: string
   clientPhone: string
   clientAddress: string

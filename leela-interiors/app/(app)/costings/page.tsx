@@ -12,8 +12,8 @@ export default async function CostingsPage() {
 
   const { data: costings } = await supabase
     .from('costings')
-    .select('id, costing_number, client_name, grand_total, status, created_at')
-    .order('created_at', { ascending: false })
+    .select('id, costing_number, client_name, grand_total, status, costing_date')
+    .order('costing_date', { ascending: false })
 
   return (
     <div className="p-6">
@@ -83,7 +83,7 @@ export default async function CostingsPage() {
                   </td>
                   <td className="px-4 py-3 text-text-muted">
                     <Link href={`/costings/${c.id}`} className="block">
-                      {c.created_at ? formatDate(c.created_at) : '—'}
+                      {c.costing_date ? formatDate(c.costing_date) : '—'}
                     </Link>
                   </td>
                   <td className="px-4 py-3">

@@ -33,6 +33,7 @@ export default async function CostingDetailPage({
   const lineItems = costing.line_items as LineItems
 
   const formState: CostingFormState = {
+    costingDate: costing.costing_date ?? undefined,
     clientName: costing.client_name ?? '',
     clientPhone: costing.client_phone ?? '',
     clientAddress: costing.client_address ?? '',
@@ -63,7 +64,7 @@ export default async function CostingDetailPage({
     grandTotal: Number(costing.grand_total),
   }
 
-  const displayDate = costing.created_at ? formatDate(costing.created_at) : undefined
+  const displayDate = costing.costing_date ? formatDate(costing.costing_date) : undefined
 
   const businessProfile = profile
     ? { business_name: profile.business_name, gstin: profile.gstin, address: profile.address, state_code: profile.state_code, pan: profile.pan }

@@ -89,7 +89,7 @@ export default async function InvoiceDetailPage({
     grandTotal: Number(invoice.grand_total),
   }
 
-  const displayDate = invoice.created_at ? formatDate(invoice.created_at) : undefined
+  const displayDate = invoice.invoice_date ? formatDate(invoice.invoice_date) : undefined
 
   const businessProfile = profile
     ? {

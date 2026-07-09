@@ -24,8 +24,14 @@ type ClientSuggestion = {
   reference: string | null
 }
 
+function todayISO(): string {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 type FormState = {
   clientId: string
+  costingDate: string
   clientName: string
   clientPhone: string
   clientAddress: string
@@ -42,6 +48,7 @@ type FormState = {
 }
 
 type StringField =
+  | 'costingDate'
   | 'clientName' | 'clientPhone' | 'clientAddress' | 'clientReference' | 'clientGstin'
   | 'shutterTop' | 'shutterBase' | 'cabinetColor'
   | 'freight' | 'gstRate' | 'notes'
@@ -114,6 +121,7 @@ function reducer(state: FormState, action: Action): FormState {
 
 const INITIAL: FormState = {
   clientId: '',
+  costingDate: todayISO(),
   clientName: '',
   clientPhone: '',
   clientAddress: '',
@@ -143,6 +151,7 @@ function fromApiState(state: CostingFormState): FormState {
   })
   return {
     clientId: state.clientId ?? '',
+    costingDate: state.costingDate || todayISO(),
     clientName: state.clientName,
     clientPhone: state.clientPhone,
     clientAddress: state.clientAddress,
@@ -179,6 +188,7 @@ function toLineItem(item: FormItem): LineItem {
 function toApiState(state: FormState): CostingFormState {
   return {
     clientId: state.clientId || undefined,
+    costingDate: state.costingDate || todayISO(),
     clientName: state.clientName,
     clientPhone: state.clientPhone,
     clientAddress: state.clientAddress,
@@ -337,6 +347,14 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
       <section className="rounded-xl bg-bg-surface border border-border p-5 space-y-4">
         <SectionHeading>Client Details</SectionHeading>
         <div className="grid grid-cols-2 gap-4">
+          <Field label="Costing Date" htmlFor="costingDate">
+            <Input
+              id="costingDate"
+              type="date"
+              value={state.costingDate}
+              onChange={e => dispatch({ type: 'SET_FIELD', field: 'costingDate', value: e.target.value })}
+            />
+          </Field>
           <Field label="Name" htmlFor="clientName">
             <div ref={clientWrapperRef} className="relative">
               <Input

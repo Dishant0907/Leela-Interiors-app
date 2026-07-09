@@ -106,6 +106,7 @@ export type Database = {
           client_phone: string | null
           client_reference: string | null
           costing_number: string
+          costing_date: string
           created_at: string | null
           freight: number
           grand_total: number
@@ -140,6 +141,7 @@ export type Database = {
           client_phone?: string | null
           client_reference?: string | null
           costing_number: string
+          costing_date?: string
           created_at?: string | null
           freight?: number
           grand_total?: number
@@ -174,6 +176,7 @@ export type Database = {
           client_phone?: string | null
           client_reference?: string | null
           costing_number?: string
+          costing_date?: string
           created_at?: string | null
           freight?: number
           grand_total?: number
@@ -215,6 +218,7 @@ export type Database = {
           client_id: string | null
           costing_id: string
           created_at: string | null
+          invoice_date: string
           freight: number
           grand_total: number
           gst_amount: number
@@ -241,6 +245,7 @@ export type Database = {
           client_id?: string | null
           costing_id: string
           created_at?: string | null
+          invoice_date?: string
           freight?: number
           grand_total?: number
           gst_amount?: number
@@ -267,6 +272,7 @@ export type Database = {
           client_id?: string | null
           costing_id?: string
           created_at?: string | null
+          invoice_date?: string
           freight?: number
           grand_total?: number
           gst_amount?: number

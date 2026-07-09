@@ -20,7 +20,7 @@ interface CostingPreviewProps {
 }
 
 export function CostingPreview({ formState, totals, costingNumber, date, businessProfile }: CostingPreviewProps) {
-  const displayDate = date ?? formatDate(new Date())
+  const displayDate = date ?? (formState.costingDate ? formatDate(formState.costingDate) : formatDate(new Date()))
   const transactionType = formState.transactionType ?? 'intra'
 
   const populatedSections = SECTION_KEYS.filter(
