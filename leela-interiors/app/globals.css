@@ -147,5 +147,13 @@
     }
   html {
     @apply font-sans;
+    font-size: 17px;
     }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm;
+  }
 }

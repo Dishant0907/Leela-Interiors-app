@@ -27,12 +27,12 @@ The owner needs to share the costing with the client — printed or as a PDF fil
 
 ## Acceptance Criteria
 
-- [ ] `/costings/[id]` renders the full costing document using data from Supabase
-- [ ] "Print / Export PDF" button opens the browser print dialog
-- [ ] Printed output shows: LI logo, COSTING heading, client details, colour fields, four item sections, totals block, terms & conditions
-- [ ] Sidebar and buttons are hidden in the printed output
-- [ ] `/costings` shows a list of all costings with costing number, client name, grand total, date, status
-- [ ] Clicking a costing in the list navigates to its detail page
+- [x] `/costings/[id]` renders the full costing document using data from Supabase
+- [x] "Print / Export PDF" button opens the browser print dialog
+- [x] Printed output shows: LI logo, COSTING heading, client details, colour fields, four item sections, totals block, terms & conditions
+- [x] Sidebar and buttons are hidden in the printed output
+- [x] `/costings` shows a list of all costings with costing number, client name, grand total, date, status
+- [x] Clicking a costing in the list navigates to its detail page
 
 ## Implementation Notes
 

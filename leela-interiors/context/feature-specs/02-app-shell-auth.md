@@ -13,7 +13,6 @@ This layout renders a fixed dark sidebar (240px wide) on the left and a scrollab
 Create `src/components/layout/sidebar.tsx`.
 
 Requirements:
-
 - dark background using `--bg-sidebar`
 - top: `LI` monogram in a small black square, followed by "Leela Interiors" text
 - nav links below: Dashboard, Costings, Invoices, Clients, Items

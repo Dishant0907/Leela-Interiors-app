@@ -24,10 +24,26 @@
 
 ## Storage Model
 
-- **Supabase Postgres**: all costings, invoices, payments, clients, item master records
-- **Line items**: stored as JSONB snapshot on the `costings` row — never normalised into child rows. This preserves historical accuracy if item master rates change.
+All data lives in Supabase Postgres. RLS is enabled on every table; every row is scoped to `auth.uid() = user_id`.
+
+### Tables
+
+**`clients`** — `id, user_id, name, phone, address, reference, created_at`
+
+**`item_master`** — `id, user_id, section, name, default_rate (numeric), active (bool), created_at`
+
+**`costings`** — `id, user_id, client_id (fk→clients), costing_number, status (draft|saved), client_name, client_phone, client_address, client_reference, shutter_top, shutter_base, cabinet_color, line_items (jsonb), kitchen_total, accessories_total, hardware_total, civil_total, freight, gst_rate, gst_amount, grand_total, notes, created_at, updated_at`
+
+**`invoices`** — `id, user_id, costing_id (fk→costings), client_id (fk→clients), invoice_number, status (pending|partial|paid), line_items (jsonb), kitchen_total, accessories_total, hardware_total, civil_total, freight, gst_rate, gst_amount, grand_total, created_at`
+
+**`payments`** — `id, user_id, invoice_id (fk→invoices), stage (advance|pre_delivery|completion), amount, paid_at, notes`
+
+### Key design decisions
+
+- **Line items JSONB shape**: `{ sections: { kitchen: LineItem[], accessories: LineItem[], hardware: LineItem[], civil: LineItem[] } }` where `LineItem = { id, description, qty, rate, amount }`. Never normalised into child rows — preserves historical accuracy if item master rates change.
 - **Totals**: pre-calculated and stored on save (`kitchen_total`, `gst_amount`, `grand_total`) — never derived on read.
 - **Invoice line items**: copied from costing at creation time and locked; never reference the live costing rows.
+- **No triggers or DB functions**: all total calculations happen in app code before writing to Postgres.
 
 ## Auth Model
 

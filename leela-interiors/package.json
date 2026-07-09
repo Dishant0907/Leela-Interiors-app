@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "backup:db": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/backup-db.ps1"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
