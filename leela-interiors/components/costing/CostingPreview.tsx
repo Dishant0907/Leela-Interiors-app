@@ -154,20 +154,22 @@ export function CostingPreview({ formState, totals, costingNumber, date, busines
 
               return (
                 <React.Fragment key={key}>
-                  {/* Section header row */}
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="pt-4 pb-1.5 font-bold text-[10px] uppercase tracking-[0.12em] text-gray-900 border-t border-gray-200"
-                    >
-                      {SECTION_LABELS[key]}
-                      {sectionHsn && (
-                        <span className="ml-2 font-normal text-gray-500 normal-case tracking-normal">
-                          (HSN/SAC: {sectionHsn})
-                        </span>
-                      )}
-                    </td>
-                  </tr>
+                  {/* Section header row — kitchen label suppressed since this section also covers wardrobe work */}
+                  {key !== 'kitchen' && (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="pt-4 pb-1.5 font-bold text-[10px] uppercase tracking-[0.12em] text-gray-900 border-t border-gray-200"
+                      >
+                        {SECTION_LABELS[key]}
+                        {sectionHsn && (
+                          <span className="ml-2 font-normal text-gray-500 normal-case tracking-normal">
+                            (HSN/SAC: {sectionHsn})
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  )}
                   {/* Item rows */}
                   {rows.map((row) => (
                     <tr key={row.id} className="border-b border-gray-100">

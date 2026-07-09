@@ -207,14 +207,17 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
                 const rows = formState.sections[key]
                 return (
                   <React.Fragment key={key}>
-                    <tr>
-                      <td
-                        colSpan={6}
-                        className="border-y border-gray-300 px-3 py-1 text-[10px] font-bold uppercase tracking-wide"
-                      >
-                        {SECTION_LABELS[key]}
-                      </td>
-                    </tr>
+                    {/* Kitchen label suppressed since this section also covers wardrobe work */}
+                    {key !== 'kitchen' && (
+                      <tr>
+                        <td
+                          colSpan={6}
+                          className="border-y border-gray-300 px-3 py-1 text-[10px] font-bold uppercase tracking-wide"
+                        >
+                          {SECTION_LABELS[key]}
+                        </td>
+                      </tr>
+                    )}
                     {rows.map((row) => (
                       <tr key={row.id} className="border-b border-gray-200">
                         <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-500">
