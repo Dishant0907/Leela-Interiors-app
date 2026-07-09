@@ -145,7 +145,7 @@ export default async function InvoiceDetailPage({
       </div>
 
       <PaymentStages
-        invoice={{ id: invoice.id, grand_total: totals.grandTotal }}
+        invoice={{ id: invoice.id, grand_total: Math.round(totals.grandTotal) }}
         existingPayments={payments ?? []}
       />
     </div>

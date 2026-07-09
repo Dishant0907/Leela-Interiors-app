@@ -33,6 +33,9 @@ export function CostingPreview({ formState, totals, costingNumber, date, busines
     totals.hardwareTotal +
     totals.civilTotal
 
+  const grandTotalRounded = Math.round(totals.grandTotal)
+  const roundOff = grandTotalRounded - totals.grandTotal
+
   return (
     <div className="bg-white text-[13px] text-gray-900 font-sans leading-snug p-8 print:p-0">
       {/* ── Logo + Company name + Business profile ── */}
@@ -239,10 +242,18 @@ export function CostingPreview({ formState, totals, costingNumber, date, busines
               <span className="font-medium text-gray-900">{formatINR(totals.igstAmount)}</span>
             </div>
           )}
+          {roundOff !== 0 && (
+            <div className="flex justify-between py-1.5 border-t border-gray-200 text-xs text-gray-700">
+              <span>Round Off</span>
+              <span className="font-medium text-gray-900">
+                {roundOff > 0 ? '+' : '−'}{formatINR(Math.abs(roundOff))}
+              </span>
+            </div>
+          )}
           <div className="flex justify-between items-center py-2 border-t-2 border-gray-900 mt-0.5">
             <span className="font-bold text-sm uppercase tracking-wider">Grand Total</span>
             <span className="font-bold text-base text-[#8B2035]">
-              {formatINR(totals.grandTotal)}
+              {formatINR(grandTotalRounded)}
             </span>
           </div>
         </div>

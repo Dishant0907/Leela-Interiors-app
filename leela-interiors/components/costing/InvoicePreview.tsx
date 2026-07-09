@@ -48,6 +48,9 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
   const subtotal =
     totals.kitchenTotal + totals.accessoriesTotal + totals.hardwareTotal + totals.civilTotal
 
+  const grandTotalRounded = Math.round(totals.grandTotal)
+  const roundOff = grandTotalRounded - totals.grandTotal
+
   const hasItems = populatedSections.length > 0 || formState.freight > 0
 
   // ── HSN/SAC tax summary ── GST applies only to the Kitchen Cabinet Work subtotal.
@@ -301,10 +304,18 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
               <span className="font-medium">{formatINR(formState.freight)}</span>
             </div>
           )}
+          {roundOff !== 0 && (
+            <div className="flex justify-between border-t border-gray-300 px-3 py-1">
+              <span className="text-gray-600">Round Off</span>
+              <span className="font-medium">
+                {roundOff > 0 ? '+' : '−'}{formatINR(Math.abs(roundOff))}
+              </span>
+            </div>
+          )}
           <div className="flex justify-between border-t border-gray-400 bg-gray-50 px-3 py-2">
             <span className="font-bold uppercase tracking-wide">Grand Total</span>
             <span className="font-bold text-[13px] text-[#8B2035]">
-              {formatINR(totals.grandTotal)}
+              {formatINR(grandTotalRounded)}
             </span>
           </div>
         </div>
@@ -385,7 +396,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       {/* ── Amount in words ── */}
       <div className={`${CELL} border-b border-gray-400`}>
         <div className={LABEL}>Amount Chargeable (in words)</div>
-        <div className="mt-0.5 font-semibold italic">{amountInWords(totals.grandTotal)}</div>
+        <div className="mt-0.5 font-semibold italic">{amountInWords(grandTotalRounded)}</div>
       </div>
 
       {/* ── Colour spec ── */}

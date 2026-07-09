@@ -29,7 +29,7 @@ export function TotalsStrip({ totals, freight, transactionType }: TotalsStripPro
       </div>
       <div className="border-t border-gray-700 pt-2 flex justify-between font-bold text-base text-white">
         <span>Grand Total</span>
-        <span>{formatINR(totals.grandTotal)}</span>
+        <span>{formatINR(Math.round(totals.grandTotal))}</span>
       </div>
     </div>
   )
