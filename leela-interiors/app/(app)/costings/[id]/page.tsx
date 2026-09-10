@@ -7,7 +7,7 @@ import { PrintButton } from '@/components/costing/PrintButton'
 import { ConvertToInvoiceButton } from './ConvertToInvoiceButton'
 import { DeleteCostingButton } from './DeleteCostingButton'
 import { FirstRunBanner } from '@/components/shared/FirstRunBanner'
-import { formatDate, formatDateCompact } from '@/lib/format'
+import { formatDate, formatDateCompact, toFilenameSegment } from '@/lib/format'
 import type { CostingFormState, Totals } from '@/types/costing'
 import type { LineItems } from '@/types/supabase'
 
@@ -109,11 +109,13 @@ export default async function CostingDetailPage({
           </Link>
           <ConvertToInvoiceButton costingId={id} />
           <PrintButton
-            documentTitle={
-              costing.costing_date
-                ? `${costing.costing_number.replace(/-/g, '')}${formatDateCompact(costing.costing_date)}`
-                : costing.costing_number.replace(/-/g, '')
-            }
+            documentTitle={[
+              costing.costing_number.replace(/-/g, ''),
+              costing.client_name ? toFilenameSegment(costing.client_name) : null,
+              costing.costing_date ? formatDateCompact(costing.costing_date) : null,
+            ]
+              .filter(Boolean)
+              .join('-')}
           />
           <DeleteCostingButton costingId={id} />
         </div>
