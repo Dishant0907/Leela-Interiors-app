@@ -7,7 +7,7 @@ import { PrintButton } from '@/components/costing/PrintButton'
 import { PaymentStages } from '@/components/invoice/PaymentStages'
 import { DeleteInvoiceButton } from './DeleteInvoiceButton'
 import { FirstRunBanner } from '@/components/shared/FirstRunBanner'
-import { formatDate } from '@/lib/format'
+import { formatDate, formatDateCompact } from '@/lib/format'
 import type { CostingFormState, Totals } from '@/types/costing'
 import type { LineItems } from '@/types/supabase'
 
@@ -128,7 +128,13 @@ export default async function InvoiceDetailPage({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <PrintButton />
+          <PrintButton
+            documentTitle={
+              invoice.invoice_date
+                ? `${invoice.invoice_number.replace(/-/g, '')}${formatDateCompact(invoice.invoice_date)}`
+                : invoice.invoice_number.replace(/-/g, '')
+            }
+          />
           <DeleteInvoiceButton invoiceId={id} />
         </div>
       </div>

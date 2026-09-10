@@ -17,7 +17,7 @@ const GST_STATE_CODES: Record<string, string> = {
   '36': 'Telangana', '37': 'Andhra Pradesh',
 }
 
-const LABEL = 'text-[9px] uppercase tracking-[0.1em] text-gray-500'
+const LABEL = 'text-[10.5px] uppercase tracking-[0.1em] text-gray-600'
 const CELL = 'px-3 py-2'
 const META_ROW = 'flex justify-between gap-3 py-0.5'
 
@@ -76,21 +76,21 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
   const freightSerial = formState.freight > 0 ? itemCount + 1 : null
 
   return (
-    <div className="bg-white text-gray-900 font-sans text-[11px] leading-snug border border-gray-400">
+    <div className="bg-white text-gray-900 font-sans text-[12.5px] leading-snug border border-gray-400">
       {/* ── Top bar: GSTIN + copy type ── */}
       <div className="flex items-center justify-between border-b border-gray-400 px-3 py-1.5">
         <div className="font-semibold">GSTIN: {businessProfile?.gstin ?? '—'}</div>
-        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-600">
+        <div className="text-[11.5px] font-semibold uppercase tracking-widest text-gray-800">
           Original Copy
         </div>
       </div>
 
       {/* ── Centered title + business identity ── */}
       <div className="border-b border-gray-400 px-3 py-3 text-center">
-        <div className="text-[11px] font-bold uppercase tracking-[0.3em]">Tax Invoice</div>
+        <div className="text-[12.5px] font-bold uppercase tracking-[0.3em]">Tax Invoice</div>
         <div className="mt-1 text-xl font-black uppercase tracking-wide">{businessName}</div>
         {businessProfile?.address && (
-          <div className="mt-0.5 text-gray-700">{businessProfile.address}</div>
+          <div className="mt-0.5 text-gray-900">{businessProfile.address}</div>
         )}
       </div>
 
@@ -98,34 +98,34 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       <div className="grid grid-cols-2 border-b border-gray-400">
         <div className={`${CELL} border-r border-gray-400`}>
           <div className={META_ROW}>
-            <span className="text-gray-600">Invoice No.</span>
+            <span className="text-gray-800">Invoice No.</span>
             <span className="font-bold text-[#8B2035]">{invoiceNumber ?? 'DRAFT'}</span>
           </div>
           <div className={META_ROW}>
-            <span className="text-gray-600">Dated</span>
+            <span className="text-gray-800">Dated</span>
             <span className="font-semibold">{displayDate}</span>
           </div>
           <div className={META_ROW}>
-            <span className="text-gray-600">Reverse Charge</span>
+            <span className="text-gray-800">Reverse Charge</span>
             <span className="font-semibold">N</span>
           </div>
         </div>
         <div className={CELL}>
           {placeOfSupply && (
             <div className={META_ROW}>
-              <span className="text-gray-600">Place of Supply</span>
+              <span className="text-gray-800">Place of Supply</span>
               <span className="font-semibold">{placeOfSupply}</span>
             </div>
           )}
           {businessProfile?.state_code && (
             <div className={META_ROW}>
-              <span className="text-gray-600">State Code</span>
+              <span className="text-gray-800">State Code</span>
               <span className="font-semibold">{businessProfile.state_code}</span>
             </div>
           )}
           {businessProfile?.pan && (
             <div className={META_ROW}>
-              <span className="text-gray-600">PAN</span>
+              <span className="text-gray-800">PAN</span>
               <span className="font-semibold">{businessProfile.pan}</span>
             </div>
           )}
@@ -136,35 +136,35 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       <div className="grid grid-cols-2 border-b border-gray-400">
         <div className={`${CELL} border-r border-gray-400`}>
           <div className={`${LABEL} mb-1`}>Billed To</div>
-          <div className="font-semibold text-[13px]">
+          <div className="font-semibold text-[15px]">
             {formState.clientName || (
-              <span className="italic font-normal text-gray-500">Client name</span>
+              <span className="italic font-normal text-gray-600">Client name</span>
             )}
           </div>
           {formState.clientAddress && (
-            <div className="mt-0.5 text-gray-700">{formState.clientAddress}</div>
+            <div className="mt-0.5 text-gray-900">{formState.clientAddress}</div>
           )}
           {formState.clientPhone && (
-            <div className="mt-0.5 text-gray-700">{formState.clientPhone}</div>
+            <div className="mt-0.5 text-gray-900">{formState.clientPhone}</div>
           )}
-          <div className="mt-0.5 text-gray-700">
+          <div className="mt-0.5 text-gray-900">
             GSTIN/UIN: <span className="font-medium">{formState.clientGstin || '—'}</span>
           </div>
           {formState.clientReference && (
-            <div className="mt-0.5 italic text-gray-500">{formState.clientReference}</div>
+            <div className="mt-0.5 italic text-gray-600">{formState.clientReference}</div>
           )}
         </div>
         <div className={CELL}>
           <div className={`${LABEL} mb-1`}>Shipped To</div>
-          <div className="font-semibold text-[13px]">
+          <div className="font-semibold text-[15px]">
             {formState.clientName || (
-              <span className="italic font-normal text-gray-500">Client name</span>
+              <span className="italic font-normal text-gray-600">Client name</span>
             )}
           </div>
           {formState.clientAddress && (
-            <div className="mt-0.5 text-gray-700">{formState.clientAddress}</div>
+            <div className="mt-0.5 text-gray-900">{formState.clientAddress}</div>
           )}
-          <div className="mt-0.5 text-gray-700">
+          <div className="mt-0.5 text-gray-900">
             GSTIN/UIN: <span className="font-medium">{formState.clientGstin || '—'}</span>
           </div>
         </div>
@@ -174,22 +174,22 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b border-gray-400">
-            <th className="w-8 border-r border-gray-300 px-2 py-1.5 text-center text-[9px] font-semibold uppercase tracking-wide text-gray-600">
+            <th className="w-8 border-r border-gray-300 px-2 py-1.5 text-center text-[10.5px] font-semibold uppercase tracking-wide text-gray-800">
               S.N
             </th>
-            <th className="border-r border-gray-300 px-3 py-1.5 text-left text-[9px] font-semibold uppercase tracking-wide text-gray-600">
+            <th className="border-r border-gray-300 px-3 py-1.5 text-left text-[10.5px] font-semibold uppercase tracking-wide text-gray-800">
               Description of Goods
             </th>
-            <th className="w-20 border-r border-gray-300 px-2 py-1.5 text-center text-[9px] font-semibold uppercase tracking-wide text-gray-600">
+            <th className="w-20 border-r border-gray-300 px-2 py-1.5 text-center text-[10.5px] font-semibold uppercase tracking-wide text-gray-800">
               HSN/SAC
             </th>
-            <th className="w-12 border-r border-gray-300 px-2 py-1.5 text-center text-[9px] font-semibold uppercase tracking-wide text-gray-600">
+            <th className="w-12 border-r border-gray-300 px-2 py-1.5 text-center text-[10.5px] font-semibold uppercase tracking-wide text-gray-800">
               Qty
             </th>
-            <th className="w-20 border-r border-gray-300 px-2 py-1.5 text-right text-[9px] font-semibold uppercase tracking-wide text-gray-600">
+            <th className="w-20 border-r border-gray-300 px-2 py-1.5 text-right text-[10.5px] font-semibold uppercase tracking-wide text-gray-800">
               Rate
             </th>
-            <th className="w-24 px-3 py-1.5 text-right text-[9px] font-semibold uppercase tracking-wide text-gray-600">
+            <th className="w-24 px-3 py-1.5 text-right text-[10.5px] font-semibold uppercase tracking-wide text-gray-800">
               Amount
             </th>
           </tr>
@@ -197,7 +197,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
         <tbody>
           {!hasItems ? (
             <tr>
-              <td colSpan={6} className="border-b border-gray-300 py-6 text-center italic text-gray-500">
+              <td colSpan={6} className="border-b border-gray-300 py-6 text-center italic text-gray-600">
                 No items.
               </td>
             </tr>
@@ -212,7 +212,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
                       <tr>
                         <td
                           colSpan={6}
-                          className="border-y border-gray-300 px-3 py-1 text-[10px] font-bold uppercase tracking-wide"
+                          className="border-y border-gray-300 px-3 py-1 text-[11.5px] font-bold uppercase tracking-wide"
                         >
                           {SECTION_LABELS[key]}
                         </td>
@@ -220,19 +220,19 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
                     )}
                     {rows.map((row) => (
                       <tr key={row.id} className="border-b border-gray-200">
-                        <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-500">
+                        <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-600">
                           {serialMap.get(row.id)}
                         </td>
-                        <td className="border-r border-gray-200 px-3 py-1 text-gray-700">
+                        <td className="border-r border-gray-200 px-3 py-1 text-gray-900">
                           {row.description || '—'}
                         </td>
-                        <td className="border-r border-gray-200 px-2 py-1 text-center font-mono text-[10px] text-gray-600">
+                        <td className="border-r border-gray-200 px-2 py-1 text-center font-mono text-[11.5px] text-gray-800">
                           {row.hsn_sac || '—'}
                         </td>
-                        <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-700">
+                        <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-900">
                           {row.qty ? `${row.qty} ${UNIT_LABELS[row.unit as Unit] ?? row.unit}` : '—'}
                         </td>
-                        <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-700">
+                        <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-900">
                           {row.rate ? formatINR(row.rate) : '—'}
                         </td>
                         <td className="px-3 py-1 text-right font-semibold text-gray-900">
@@ -249,21 +249,21 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
                   <tr>
                     <td
                       colSpan={6}
-                      className="border-y border-gray-300 px-3 py-1 text-[10px] font-bold uppercase tracking-wide"
+                      className="border-y border-gray-300 px-3 py-1 text-[11.5px] font-bold uppercase tracking-wide"
                     >
                       Other Charges
                     </td>
                   </tr>
                   <tr className="border-b border-gray-200">
-                    <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-500">
+                    <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-600">
                       {freightSerial}
                     </td>
-                    <td className="border-r border-gray-200 px-3 py-1 text-gray-700">
+                    <td className="border-r border-gray-200 px-3 py-1 text-gray-900">
                       Freight &amp; Fitting
                     </td>
-                    <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-500">—</td>
-                    <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-700">1</td>
-                    <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-700">
+                    <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-600">—</td>
+                    <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-900">1</td>
+                    <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-900">
                       {formatINR(formState.freight)}
                     </td>
                     <td className="px-3 py-1 text-right font-semibold text-gray-900">
@@ -281,35 +281,35 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       <div className="flex justify-end border-b border-gray-400">
         <div className="w-72">
           <div className="flex justify-between border-t border-gray-300 px-3 py-1">
-            <span className="text-gray-600">Subtotal</span>
+            <span className="text-gray-800">Subtotal</span>
             <span className="font-medium">{formatINR(subtotal)}</span>
           </div>
           {transactionType === 'intra' ? (
             <>
               <div className="flex justify-between border-t border-gray-300 px-3 py-1">
-                <span className="text-gray-600">Add : CGST @ {totals.cgstRate.toFixed(2)}%</span>
+                <span className="text-gray-800">Add : CGST @ {totals.cgstRate.toFixed(2)}%</span>
                 <span className="font-medium">{formatINR(totals.cgstAmount)}</span>
               </div>
               <div className="flex justify-between border-t border-gray-300 px-3 py-1">
-                <span className="text-gray-600">Add : SGST @ {totals.sgstRate.toFixed(2)}%</span>
+                <span className="text-gray-800">Add : SGST @ {totals.sgstRate.toFixed(2)}%</span>
                 <span className="font-medium">{formatINR(totals.sgstAmount)}</span>
               </div>
             </>
           ) : (
             <div className="flex justify-between border-t border-gray-300 px-3 py-1">
-              <span className="text-gray-600">Add : IGST @ {totals.igstRate.toFixed(2)}%</span>
+              <span className="text-gray-800">Add : IGST @ {totals.igstRate.toFixed(2)}%</span>
               <span className="font-medium">{formatINR(totals.igstAmount)}</span>
             </div>
           )}
           {formState.freight > 0 && (
             <div className="flex justify-between border-t border-gray-300 px-3 py-1">
-              <span className="text-gray-600">Freight</span>
+              <span className="text-gray-800">Freight</span>
               <span className="font-medium">{formatINR(formState.freight)}</span>
             </div>
           )}
           {roundOff !== 0 && (
             <div className="flex justify-between border-t border-gray-300 px-3 py-1">
-              <span className="text-gray-600">Round Off</span>
+              <span className="text-gray-800">Round Off</span>
               <span className="font-medium">
                 {roundOff > 0 ? '+' : '−'}{formatINR(Math.abs(roundOff))}
               </span>
@@ -317,7 +317,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
           )}
           <div className="flex justify-between border-t border-gray-400 bg-gray-50 px-3 py-2">
             <span className="font-bold uppercase tracking-wide">Grand Total</span>
-            <span className="font-bold text-[13px] text-[#8B2035]">
+            <span className="font-bold text-[15px] text-[#8B2035]">
               {formatINR(grandTotalRounded)}
             </span>
           </div>
@@ -325,33 +325,33 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       </div>
 
       {/* ── HSN/SAC tax summary ── */}
-      <table className="w-full border-collapse border-b border-gray-400 text-[10px]">
+      <table className="w-full border-collapse border-b border-gray-400 text-[11.5px]">
         <thead>
           <tr className="border-b border-gray-300 bg-gray-50">
-            <th className="border-r border-gray-300 px-2 py-1 text-left font-semibold uppercase tracking-wide text-gray-600">
+            <th className="border-r border-gray-300 px-2 py-1 text-left font-semibold uppercase tracking-wide text-gray-800">
               HSN/SAC
             </th>
-            <th className="border-r border-gray-300 px-2 py-1 text-center font-semibold uppercase tracking-wide text-gray-600">
+            <th className="border-r border-gray-300 px-2 py-1 text-center font-semibold uppercase tracking-wide text-gray-800">
               Tax Rate
             </th>
-            <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-600">
+            <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-800">
               Taxable Amt.
             </th>
             {transactionType === 'intra' ? (
               <>
-                <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-600">
+                <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-800">
                   CGST Amt.
                 </th>
-                <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-600">
+                <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-800">
                   SGST Amt.
                 </th>
               </>
             ) : (
-              <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-600">
+              <th className="border-r border-gray-300 px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-800">
                 IGST Amt.
               </th>
             )}
-            <th className="px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-600">
+            <th className="px-2 py-1 text-right font-semibold uppercase tracking-wide text-gray-800">
               Total Tax
             </th>
           </tr>
@@ -379,18 +379,18 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
           )}
           {exemptTotal > 0 && (
             <tr>
-              <td className="border-r border-gray-200 px-2 py-1 font-mono text-gray-500">—</td>
-              <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-500">0%</td>
+              <td className="border-r border-gray-200 px-2 py-1 font-mono text-gray-600">—</td>
+              <td className="border-r border-gray-200 px-2 py-1 text-center text-gray-600">0%</td>
               <td className="border-r border-gray-200 px-2 py-1 text-right">{formatINR(exemptTotal)}</td>
               {transactionType === 'intra' ? (
                 <>
-                  <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-500">—</td>
-                  <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-500">—</td>
+                  <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-600">—</td>
+                  <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-600">—</td>
                 </>
               ) : (
-                <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-500">—</td>
+                <td className="border-r border-gray-200 px-2 py-1 text-right text-gray-600">—</td>
               )}
-              <td className="px-2 py-1 text-right text-gray-500">—</td>
+              <td className="px-2 py-1 text-right text-gray-600">—</td>
             </tr>
           )}
         </tbody>
@@ -403,7 +403,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       </div>
 
       {/* ── Colour spec ── */}
-      <div className="flex flex-wrap gap-6 border-b border-gray-400 px-3 py-1.5 text-gray-600">
+      <div className="flex flex-wrap gap-6 border-b border-gray-400 px-3 py-1.5 text-gray-800">
         <span>
           Top Shutter: <span className="font-medium text-gray-900">{formState.shutterTop || '—'}</span>
         </span>
@@ -419,7 +419,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       {(businessProfile?.bank_account_no || businessProfile?.bank_ifsc || businessProfile?.bank_name) && (
         <div className={`${CELL} border-b border-gray-400`}>
           <span className={LABEL}>Bank Details </span>
-          <span className="ml-1 text-gray-700">
+          <span className="ml-1 text-gray-900">
             {businessProfile?.bank_account_no && (
               <>Bank A/c no. <span className="font-medium">{businessProfile.bank_account_no}</span></>
             )}
@@ -440,22 +440,22 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       <div className="grid grid-cols-2">
         <div className={`${CELL} border-r border-gray-400`}>
           <div className={`${LABEL} mb-1`}>Terms and Conditions</div>
-          <div className="whitespace-pre-line text-gray-700">
+          <div className="whitespace-pre-line text-gray-900">
             {businessProfile?.terms_conditions || 'E.& O.E.'}
           </div>
           {formState.notes && (
-            <div className="mt-2 whitespace-pre-line text-gray-600">{formState.notes}</div>
+            <div className="mt-2 whitespace-pre-line text-gray-800">{formState.notes}</div>
           )}
         </div>
         <div className={`${CELL} flex min-h-28 flex-col justify-between`}>
-          <div className="flex items-start justify-between text-gray-600">
+          <div className="flex items-start justify-between text-gray-800">
             <span>Receiver&apos;s Signature</span>
           </div>
           <div className="self-end text-right">
-            <div className="text-gray-600">
+            <div className="text-gray-800">
               For <span className="font-semibold text-gray-900">{businessName}</span>
             </div>
-            <div className="mt-6 border-t border-gray-400 pt-1 text-gray-600">
+            <div className="mt-6 border-t border-gray-400 pt-1 text-gray-800">
               Authorised Signatory
             </div>
           </div>
@@ -463,7 +463,7 @@ export function InvoicePreview({ formState, totals, invoiceNumber, date, busines
       </div>
 
       {/* ── Footer ── */}
-      <div className="border-t border-gray-400 py-2 text-center text-[9px] italic text-gray-400">
+      <div className="border-t border-gray-400 py-2 text-center text-[10.5px] italic text-gray-500">
         This is a computer-generated invoice and does not require a physical signature.
       </div>
     </div>

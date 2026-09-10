@@ -56,31 +56,31 @@ export default async function InvoicesPage() {
                     key={inv.id}
                     className="hover:bg-bg-surface/60 transition-colors cursor-pointer"
                   >
-                    <td className="px-4 py-3">
+                    <td className="p-0">
                       <Link
                         href={`/invoices/${inv.id}`}
-                        className="font-medium text-text-primary hover:underline"
+                        className="block px-4 py-3 font-medium text-text-primary hover:underline"
                       >
                         {inv.invoice_number}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-text-primary">
-                      <Link href={`/invoices/${inv.id}`} className="block">
+                    <td className="p-0 text-text-primary">
+                      <Link href={`/invoices/${inv.id}`} className="block px-4 py-3">
                         {clientName || <span className="text-text-muted italic">—</span>}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-right font-medium text-text-primary">
-                      <Link href={`/invoices/${inv.id}`} className="block">
+                    <td className="p-0 text-right font-medium text-text-primary">
+                      <Link href={`/invoices/${inv.id}`} className="block px-4 py-3">
                         {formatINR(Number(inv.grand_total))}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-text-muted">
-                      <Link href={`/invoices/${inv.id}`} className="block">
+                    <td className="p-0 text-text-muted">
+                      <Link href={`/invoices/${inv.id}`} className="block px-4 py-3">
                         {inv.invoice_date ? formatDate(inv.invoice_date) : '—'}
                       </Link>
                     </td>
-                    <td className="px-4 py-3">
-                      <Link href={`/invoices/${inv.id}`} className="block">
+                    <td className="p-0">
+                      <Link href={`/invoices/${inv.id}`} className="block px-4 py-3">
                         <StatusBadge status={inv.status} />
                       </Link>
                     </td>

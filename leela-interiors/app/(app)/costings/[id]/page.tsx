@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Pencil } from 'lucide-react'
+import { ArrowLeft, Pencil, Copy } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { CostingPreview } from '@/components/costing/CostingPreview'
 import { PrintButton } from '@/components/costing/PrintButton'
 import { ConvertToInvoiceButton } from './ConvertToInvoiceButton'
 import { DeleteCostingButton } from './DeleteCostingButton'
 import { FirstRunBanner } from '@/components/shared/FirstRunBanner'
-import { formatDate } from '@/lib/format'
+import { formatDate, formatDateCompact } from '@/lib/format'
 import type { CostingFormState, Totals } from '@/types/costing'
 import type { LineItems } from '@/types/supabase'
 
@@ -100,8 +100,21 @@ export default async function CostingDetailPage({
             <Pencil className="h-3.5 w-3.5" />
             Edit
           </Link>
+          <Link
+            href={`/costings/new?duplicateFrom=${id}`}
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-surface px-3 py-1.5 text-sm font-medium text-text-primary hover:bg-gray-100 transition-colors"
+          >
+            <Copy className="h-3.5 w-3.5" />
+            Duplicate
+          </Link>
           <ConvertToInvoiceButton costingId={id} />
-          <PrintButton />
+          <PrintButton
+            documentTitle={
+              costing.costing_date
+                ? `${costing.costing_number.replace(/-/g, '')}${formatDateCompact(costing.costing_date)}`
+                : costing.costing_number.replace(/-/g, '')
+            }
+          />
           <DeleteCostingButton costingId={id} />
         </div>
       </div>

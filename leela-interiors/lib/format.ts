@@ -48,3 +48,8 @@ export function formatDate(date: string | Date): string {
   const d = typeof date === 'string' ? new Date(date) : date
   return `${String(d.getDate()).padStart(2, '0')} ${MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`
 }
+
+export function formatDateCompact(date: string | Date): string {
+  const d = typeof date === 'string' ? new Date(date) : date
+  return `${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(2, '0')}${d.getFullYear()}`
+}
