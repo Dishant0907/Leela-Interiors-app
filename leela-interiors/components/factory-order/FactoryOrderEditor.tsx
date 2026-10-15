@@ -302,8 +302,8 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
                       <th className={TH}>#</th>
                       <th className={TH}>Description</th>
                       <th className={TH}>W</th>
-                      <th className={TH}>H</th>
                       <th className={TH}>D</th>
+                      <th className={TH}>H</th>
                       <th className={TH}>Qty</th>
                       <th className={TH}>Material</th>
                       <th className={TH}>Finish</th>
@@ -322,7 +322,7 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
                         <td className="p-1">
                           <Input className={`${CELL} min-w-64`} value={item.description} onChange={(e) => updateItem(item.id, { description: e.target.value })} />
                         </td>
-                        {(['width', 'height', 'depth'] as const).map((dim) => (
+                        {(['width', 'depth', 'height'] as const).map((dim) => (
                           <td key={dim} className="p-1">
                             <Input
                               className={`${CELL} w-16`}
