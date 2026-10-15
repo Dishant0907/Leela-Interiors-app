@@ -6,6 +6,7 @@ import { InvoicePreview } from '@/components/costing/InvoicePreview'
 import { PrintButton } from '@/components/costing/PrintButton'
 import { PaymentStages } from '@/components/invoice/PaymentStages'
 import { DeleteInvoiceButton } from './DeleteInvoiceButton'
+import { RelatedDocuments } from '@/components/shared/RelatedDocuments'
 import { FirstRunBanner } from '@/components/shared/FirstRunBanner'
 import { formatDate, formatDateCompact, toFilenameSegment } from '@/lib/format'
 import type { CostingFormState, Totals } from '@/types/costing'
@@ -140,6 +141,8 @@ export default async function InvoiceDetailPage({
           <DeleteInvoiceButton invoiceId={id} />
         </div>
       </div>
+
+      <RelatedDocuments costingId={invoice.costing_id} current="invoice" />
 
       {/* Invoice document — full width when printing */}
       <div className="shadow-sm rounded overflow-hidden print:shadow-none print:rounded-none">

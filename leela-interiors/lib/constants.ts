@@ -32,3 +32,21 @@ export const SECTION_LABELS: Record<string, string> = {
 // 9405  – Fixtures and fittings
 // 9988  – Manufacturing services on physical inputs (civil/fabrication work)
 // 8302  – Hardware (hinges, handles, channels)
+
+export const FACTORY_ORDER_PREFIX = 'FO'
+export const FACTORY_STATUSES = ['draft', 'sent', 'in_production', 'ready', 'delivered'] as const
+export const FACTORY_STATUS_LABELS: Record<(typeof FACTORY_STATUSES)[number], string> = {
+  draft: 'Draft',
+  sent: 'Sent',
+  in_production: 'In Production',
+  ready: 'Ready',
+  delivered: 'Delivered',
+}
+export const FACTORY_SECTIONS = ['cabinet', 'shutter', 'accessories', 'hardware', 'other'] as const
+export const FACTORY_SECTION_LABELS: Record<(typeof FACTORY_SECTIONS)[number], string> = {
+  cabinet: 'Cabinet in Ply',
+  shutter: 'Shutter',
+  accessories: 'Accessories',
+  hardware: 'Hardware',
+  other: 'Other',
+}

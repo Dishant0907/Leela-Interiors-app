@@ -36,9 +36,9 @@ export default async function CostingsPage() {
           </Link>
         </div>
       ) : (
-        <div className="rounded-xl border border-border overflow-hidden">
+        <div className="rounded-xl border border-border">
           <table className="w-full text-sm">
-            <thead className="bg-bg-surface border-b border-border">
+            <thead className="bg-bg-surface border-b border-border [&_th:first-child]:rounded-tl-xl [&_th:last-child]:rounded-tr-xl">
               <tr>
                 <th className="text-left px-4 py-3 font-medium text-text-muted text-xs uppercase tracking-wider">
                   Number
@@ -64,41 +64,29 @@ export default async function CostingsPage() {
               {costings.map((c) => (
                 <tr
                   key={c.id}
-                  className="hover:bg-bg-surface/60 transition-colors cursor-pointer"
+                  className="relative cursor-pointer transition-all duration-200 ease-out hover:z-10 hover:scale-[1.02] hover:bg-bg-surface hover:shadow-lg"
                 >
                   <td className="px-4 py-3">
-                    <Link href={`/costings/${c.id}`} className="font-medium text-text-primary hover:underline">
+                    <Link
+                      href={`/costings/${c.id}`}
+                      className="font-medium text-text-primary hover:underline after:absolute after:inset-0 after:content-['']"
+                    >
                       {c.costing_number}
                     </Link>
                   </td>
                   <td className="px-4 py-3 text-text-primary">
-                    <Link href={`/costings/${c.id}`} className="block">
-                      {c.client_name || <span className="text-text-muted italic">—</span>}
-                    </Link>
+                    {c.client_name || <span className="text-text-muted italic">—</span>}
                   </td>
                   <td className="px-4 py-3 text-right font-medium text-text-primary">
-                    <Link href={`/costings/${c.id}`} className="block">
-                      {formatINR(Number(c.grand_total))}
-                    </Link>
+                    {formatINR(Number(c.grand_total))}
                   </td>
                   <td className="px-4 py-3 text-text-muted">
-                    <Link href={`/costings/${c.id}`} className="block">
-                      {c.costing_date ? formatDate(c.costing_date) : '—'}
-                    </Link>
+                    {c.costing_date ? formatDate(c.costing_date) : '—'}
                   </td>
                   <td className="px-4 py-3">
-                    <Link href={`/costings/${c.id}`} className="block">
-                      <StatusBadge status={c.status} />
-                    </Link>
+                    <StatusBadge status={c.status} />
                   </td>
-                  <td className="px-4 py-3">
-                    <Link
-                      href={`/costings/${c.id}`}
-                      className="text-sm font-medium text-text-primary hover:underline"
-                    >
-                      View
-                    </Link>
-                  </td>
+                  <td className="px-4 py-3 text-sm font-medium text-text-primary">View</td>
                 </tr>
               ))}
             </tbody>

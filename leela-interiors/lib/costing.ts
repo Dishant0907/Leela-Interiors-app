@@ -69,8 +69,8 @@ type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>
 /** Next NNN sequence for a `PREFIX-YYYY-NNN` column, scoped to the given year. */
 export async function getNextSequence(
   supabase: SupabaseServerClient,
-  table: 'costings' | 'invoices',
-  column: 'costing_number' | 'invoice_number',
+  table: 'costings' | 'invoices' | 'factory_orders',
+  column: 'costing_number' | 'invoice_number' | 'order_number',
   prefix: string,
   year: number,
 ): Promise<number> {

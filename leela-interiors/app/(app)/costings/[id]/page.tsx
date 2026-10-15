@@ -5,7 +5,9 @@ import { createClient } from '@/lib/supabase/server'
 import { CostingPreview } from '@/components/costing/CostingPreview'
 import { PrintButton } from '@/components/costing/PrintButton'
 import { ConvertToInvoiceButton } from './ConvertToInvoiceButton'
+import { CreateFactoryOrderButton } from './CreateFactoryOrderButton'
 import { DeleteCostingButton } from './DeleteCostingButton'
+import { RelatedDocuments } from '@/components/shared/RelatedDocuments'
 import { FirstRunBanner } from '@/components/shared/FirstRunBanner'
 import { formatDate, formatDateCompact, toFilenameSegment } from '@/lib/format'
 import type { CostingFormState, Totals } from '@/types/costing'
@@ -74,8 +76,8 @@ export default async function CostingDetailPage({
     <div className="p-6 max-w-3xl mx-auto">
       <FirstRunBanner show={!businessProfile?.gstin || !businessProfile?.business_name} />
       {/* Action bar — hidden in print */}
-      <div className="flex items-center justify-between mb-6 print:hidden">
-        <div className="flex items-center gap-3">
+      <div className="mb-6 flex flex-col gap-4 print:hidden">
+        <div className="flex items-start justify-between gap-3">
           <Link
             href="/costings"
             className="flex items-center gap-1 text-sm text-text-muted hover:text-text-primary transition-colors"
@@ -83,7 +85,7 @@ export default async function CostingDetailPage({
             <ArrowLeft className="h-4 w-4" />
             Back to Costings
           </Link>
-          <div>
+          <div className="text-right">
             <h1 className="text-2xl font-semibold text-text-primary">
               {costing.costing_number}
             </h1>
@@ -92,7 +94,7 @@ export default async function CostingDetailPage({
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           <Link
             href={`/costings/${id}/edit`}
             className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-surface px-3 py-1.5 text-sm font-medium text-text-primary hover:bg-gray-100 transition-colors"
@@ -108,6 +110,7 @@ export default async function CostingDetailPage({
             Duplicate
           </Link>
           <ConvertToInvoiceButton costingId={id} />
+          <CreateFactoryOrderButton costingId={id} />
           <PrintButton
             documentTitle={[
               costing.costing_number.replace(/-/g, ''),
@@ -120,6 +123,8 @@ export default async function CostingDetailPage({
           <DeleteCostingButton costingId={id} />
         </div>
       </div>
+
+      <RelatedDocuments costingId={id} current="costing" />
 
       {/* Costing document — full width when printing */}
       <CostingPreview

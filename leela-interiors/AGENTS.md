@@ -27,4 +27,5 @@ These rules are absolute. Never violate them regardless of what seems simpler to
 - Invoice line items are locked at creation. Never allow edits after an invoice is generated.
 - All database mutations go through `app/api/` route handlers. Client components never write to Supabase directly.
 - RLS is enforced on every table. No query ever returns rows belonging to another user.
+- Factory orders (`factory_orders`, `factory_order_items`) never contain prices, rates, amounts or margin — not in the DB, API responses, or Excel/PDF exports.
 - This is a single-owner app. There is no multi-user access, no roles, no sharing.

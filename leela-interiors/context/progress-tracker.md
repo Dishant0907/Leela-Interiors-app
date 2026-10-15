@@ -72,6 +72,7 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Next Up
 
+* Factory Order (Feature 16) shipped 2026-10-12 — see feature-specs/16-factory-order.md; PDF export not yet verified in a logged-in browser session.
 * None — all known work (13x specs + Features 14-15 + retroactively documented GST Report/delete/edit-costing/duplicate-costing) is shipped and builds clean.
 
 ## Open Questions

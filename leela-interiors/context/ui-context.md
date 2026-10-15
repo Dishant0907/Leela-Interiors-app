@@ -23,8 +23,8 @@ Clean, professional, light-mode business app. Minimal and functional — no deco
 
 | Role | Font | CSS Variable |
 | --- | --- | --- |
-| UI text | Inter | `--font-sans` |
-| Print document | Inter | same |
+| UI text | Plus Jakarta Sans | `--font-sans` |
+| Print document | Plus Jakarta Sans | same |
 
 ## Border Radius
 
