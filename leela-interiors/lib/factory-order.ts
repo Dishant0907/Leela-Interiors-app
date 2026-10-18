@@ -1,6 +1,21 @@
 import { FACTORY_STATUSES, FACTORY_SECTIONS } from '@/lib/constants'
 import type { LineItems } from '@/types/supabase'
-import type { FactoryOrderStatus, FactorySection } from '@/types/factory-order'
+import type { FactoryOrderItem, FactoryOrderStatus, FactorySection } from '@/types/factory-order'
+
+/** Sections where area (sq ft) is shown. */
+export const SQFT_SECTIONS: readonly FactorySection[] = ['cabinet', 'shutter']
+
+const MM2_PER_SQFT = 92903
+
+/** (width × height × qty) mm² converted to sq ft, 2 decimals. Null if width or height is missing. */
+export function itemSqft(item: Pick<FactoryOrderItem, 'width' | 'height' | 'qty'>): number | null {
+  if (item.width === null || item.height === null) return null
+  return Math.round(((item.width * item.height * item.qty) / MM2_PER_SQFT) * 100) / 100
+}
+
+export function sectionSqft(items: Pick<FactoryOrderItem, 'width' | 'height' | 'qty'>[]): number {
+  return Math.round(items.reduce((sum, i) => sum + (itemSqft(i) ?? 0), 0) * 100) / 100
+}
 
 const STATUS_TIMESTAMP: Partial<Record<FactoryOrderStatus, string>> = {
   sent: 'sent_at',

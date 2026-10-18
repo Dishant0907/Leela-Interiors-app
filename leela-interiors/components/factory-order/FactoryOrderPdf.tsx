@@ -1,6 +1,7 @@
 import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
 import { FACTORY_SECTIONS, FACTORY_SECTION_LABELS } from '@/lib/constants'
 import { formatDate } from '@/lib/format'
+import { itemSqft, sectionSqft, SQFT_SECTIONS } from '@/lib/factory-order'
 import type { FactoryOrderExportData, FactoryOrderItem } from '@/types/factory-order'
 
 const DARK = '#1C1C1E'
@@ -60,6 +61,7 @@ const COLUMNS: Column[] = [
   { label: 'D (mm)', flex: 1, center: true, value: (i) => show(i.depth) },
   { label: 'H (mm)', flex: 1, center: true, value: (i) => show(i.height) },
   { label: 'Qty', flex: 0.7, center: true, value: (i) => String(i.qty) },
+  { label: 'Sqft', flex: 0.9, center: true, value: (i) => show(itemSqft(i)) },
   { label: 'Material', flex: 1.5, value: (i) => i.material },
   { label: 'Finish', flex: 1.5, value: (i) => i.finish },
   { label: 'Hardware', flex: 1.5, value: (i) => i.hardware },
@@ -112,14 +114,16 @@ export function FactoryOrderPdf({ data }: { data: FactoryOrderExportData }) {
           ))}
         </View>
 
-        {groups.map((group) => (
+        {groups.map((group) => {
+          const columns = SQFT_SECTIONS.includes(group.section) ? COLUMNS : COLUMNS.filter((c) => c.label !== 'Sqft')
+          return (
           <View key={group.section} style={{ marginBottom: 12 }}>
             <Text style={styles.sectionBar} minPresenceAhead={60}>
               {FACTORY_SECTION_LABELS[group.section].toUpperCase()} - {group.items.length} item
               {group.items.length > 1 ? 's' : ''}
             </Text>
             <View style={styles.headRow}>
-              {COLUMNS.map((c) => (
+              {columns.map((c) => (
                 <Text key={c.label} style={[styles.headText, { flex: c.flex }, c.center ? styles.center : {}]}>
                   {c.label}
                 </Text>
@@ -127,16 +131,20 @@ export function FactoryOrderPdf({ data }: { data: FactoryOrderExportData }) {
             </View>
             {group.items.map((item, idx) => (
               <View key={item.id} style={[styles.row, idx % 2 === 1 ? styles.zebra : {}]} wrap={false}>
-                {COLUMNS.map((c) => (
+                {columns.map((c) => (
                   <Text key={c.label} style={[styles.cellText, { flex: c.flex }, c.center ? styles.center : {}]}>
                     {c.value(item, idx + 1)}
                   </Text>
                 ))}
               </View>
             ))}
-            <Text style={styles.total}>Total qty: {group.items.reduce((sum, i) => sum + i.qty, 0)}</Text>
+            <Text style={styles.total}>
+              Total qty: {group.items.reduce((sum, i) => sum + i.qty, 0)}
+              {SQFT_SECTIONS.includes(group.section) ? `   |   Total sqft: ${sectionSqft(group.items)}` : ''}
+            </Text>
           </View>
-        ))}
+          )
+        })}
 
         {order.notes ? (
           <View style={styles.footer} wrap={false}>

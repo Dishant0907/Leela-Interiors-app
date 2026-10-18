@@ -6,7 +6,7 @@ import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FACTORY_SECTIONS, FACTORY_SECTION_LABELS, FACTORY_STATUSES, FACTORY_STATUS_LABELS } from '@/lib/constants'
-import { nextStatus } from '@/lib/factory-order'
+import { itemSqft, nextStatus, sectionSqft, SQFT_SECTIONS } from '@/lib/factory-order'
 import type { FactoryItemMeta, FactoryOrder, FactoryOrderItem, FactorySection } from '@/types/factory-order'
 
 interface Props {
@@ -286,10 +286,16 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
       {FACTORY_SECTIONS.map((section) => {
         const sectionItems = items.filter((i) => i.section === section)
         const extras = EXTRAS[section]
+        const showSqft = SQFT_SECTIONS.includes(section)
         return (
           <div key={section} className="rounded-xl border border-border bg-white">
             <div className="flex items-center justify-between border-b border-border px-4 py-2">
-              <h2 className="text-sm font-semibold text-text-primary">{FACTORY_SECTION_LABELS[section]}</h2>
+              <h2 className="text-sm font-semibold text-text-primary">
+                {FACTORY_SECTION_LABELS[section]}
+                {showSqft && sectionItems.length > 0 && (
+                  <span className="ml-2 text-xs font-normal text-text-muted">Total {sectionSqft(sectionItems)} sqft</span>
+                )}
+              </h2>
               <Button size="sm" variant="outline" onClick={() => setItems((p) => [...p, newItem(section)])}>
                 <Plus className="h-3.5 w-3.5" /> Add row
               </Button>
@@ -305,6 +311,7 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
                       <th className={TH}>D</th>
                       <th className={TH}>H</th>
                       <th className={TH}>Qty</th>
+                      {showSqft && <th className={TH}>Sqft</th>}
                       <th className={TH}>Material</th>
                       <th className={TH}>Finish</th>
                       <th className={TH}>Hardware</th>
@@ -340,6 +347,9 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
                             onChange={(e) => updateItem(item.id, { qty: toNumber(e.target.value) ?? 0 })}
                           />
                         </td>
+                        {showSqft && (
+                          <td className="whitespace-nowrap px-1.5 text-sm text-text-primary">{itemSqft(item) ?? ''}</td>
+                        )}
                         {(['material', 'finish', 'hardware'] as const).map((f) => (
                           <td key={f} className="p-1">
                             <Input className={`${CELL} w-28`} value={item[f]} onChange={(e) => updateItem(item.id, { [f]: e.target.value })} />

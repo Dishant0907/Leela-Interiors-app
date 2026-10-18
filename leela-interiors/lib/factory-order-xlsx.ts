@@ -1,6 +1,7 @@
 import ExcelJS from 'exceljs'
 import { FACTORY_SECTIONS, FACTORY_SECTION_LABELS } from '@/lib/constants'
 import { formatDate } from '@/lib/format'
+import { itemSqft, sectionSqft, SQFT_SECTIONS } from '@/lib/factory-order'
 import type { FactoryOrderExportData, FactoryOrderItem } from '@/types/factory-order'
 
 const DARK = 'FF1C1C1E'
@@ -38,6 +39,8 @@ const COLUMNS: Column[] = [
   { header: 'Depth (mm)', width: 12, align: 'center', value: (i) => orNull(i.depth) },
   { header: 'Height (mm)', width: 12, align: 'center', value: (i) => orNull(i.height) },
   { header: 'Qty', width: 7, align: 'center', value: (i) => i.qty },
+  // Sheet columns are shared by every section, so Sqft stays in the layout and is blank outside SQFT_SECTIONS.
+  { header: 'Sqft', width: 9, align: 'center', value: (i) => (SQFT_SECTIONS.includes(i.section) ? itemSqft(i) : null) },
   { header: 'Material', width: 18, align: 'left', value: (i) => i.material },
   { header: 'Finish', width: 18, align: 'left', value: (i) => i.finish },
   { header: 'Hardware', width: 18, align: 'left', value: (i) => i.hardware },
@@ -47,6 +50,7 @@ const COLUMNS: Column[] = [
 
 const LAST_COL = COLUMNS.length
 const QTY_COL = COLUMNS.findIndex((c) => c.header === 'Qty') + 1
+const SQFT_COL = COLUMNS.findIndex((c) => c.header === 'Sqft') + 1
 
 function fill(argb: string): ExcelJS.Fill {
   return { type: 'pattern', pattern: 'solid', fgColor: { argb } }
@@ -199,6 +203,13 @@ export async function buildFactoryOrderXlsx(data: FactoryOrderExportData): Promi
     sum.font = { name: FONT_NAME, size: 11, bold: true }
     sum.alignment = { horizontal: 'center' }
     sum.border = hairline
+    if (SQFT_SECTIONS.includes(section)) {
+      const area = total.getCell(SQFT_COL)
+      area.value = sectionSqft(sectionItems)
+      area.font = { name: FONT_NAME, size: 11, bold: true }
+      area.alignment = { horizontal: 'center' }
+      area.border = hairline
+    }
     r += 2
   }
 
