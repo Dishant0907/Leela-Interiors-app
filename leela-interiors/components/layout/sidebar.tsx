@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, FileText, Receipt, Users, Package, LogOut, ChevronLeft, ChevronRight, BarChart2, Settings, Factory } from 'lucide-react'
+import { LayoutDashboard, FileText, Receipt, Users, Package, LogOut, ChevronLeft, ChevronRight, BarChart2, Settings, Factory, FolderOpen } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/costings', label: 'Costings', icon: FileText },
   { href: '/invoices', label: 'Invoices', icon: Receipt },
+  { href: '/documents', label: 'Documents', icon: FolderOpen },
   { href: '/factory-orders', label: 'Factory Orders', icon: Factory },
   { href: '/clients', label: 'Clients', icon: Users },
   { href: '/items', label: 'Items', icon: Package },

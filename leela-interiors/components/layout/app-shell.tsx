@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Sidebar } from './sidebar'
+import { BackButton } from './back-button'
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
@@ -10,6 +11,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(c => !c)} />
       <main className={`flex-1 overflow-y-auto transition-all duration-300 ${collapsed ? 'ml-14' : 'ml-60'} print:ml-0`}>
+        <BackButton />
         {children}
       </main>
     </div>
