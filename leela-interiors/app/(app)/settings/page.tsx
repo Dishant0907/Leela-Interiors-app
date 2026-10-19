@@ -26,7 +26,7 @@ export default async function SettingsPage() {
     : null
 
   return (
-    <div className="p-6 max-w-2xl">
+    <div className="p-4 sm:p-6 max-w-2xl">
       <h1 className="text-2xl font-semibold text-text-primary mb-1">Business Settings</h1>
       <p className="text-sm text-text-muted mb-6">
         This information appears on all costings and invoices for GST compliance.

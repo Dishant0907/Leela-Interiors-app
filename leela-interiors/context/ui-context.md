@@ -45,6 +45,16 @@ shadcn/ui on top of Tailwind. Use the shadcn CLI to add components (`npx shadcn-
 - Dashboard: top summary cards row, then full-width list below
 - Print / PDF view: full-width white A4 layout, sidebar hidden via `print:hidden`
 
+## Responsive Rules
+
+- Breakpoints: phone `< sm` (640px), tablet `sm`–`md` (768px), desktop `md`+; the costing form's side-by-side preview needs `lg`.
+- Below `md` the sidebar is an off-canvas drawer opened from the top-bar hamburger or the bottom tab bar's "More"; both bars are `print:hidden`.
+- Page padding is `p-4 sm:p-6`. Multi-column form grids start as one column (`grid-cols-1 sm:grid-cols-N`).
+- Lists: render a card list (`md:hidden`) plus the table (`hidden md:block`). Do not ship a bare multi-column table.
+- Dense editable rows (costing items, factory order items) become labelled cards below `sm`/`md`.
+- Touch targets are at least 40px below `sm` (Button and Input do this by default); form inputs stay 16px on phones to avoid iOS zoom.
+- Print-faithful documents (CostingPreview, InvoicePreview) keep their layout and scroll horizontally on phones.
+
 ## Icons
 
 Lucide React. Stroke-based only. `h-4 w-4` inline, `h-5 w-5` for buttons and nav items.

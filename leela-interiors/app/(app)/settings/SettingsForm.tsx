@@ -138,7 +138,7 @@ export function SettingsForm({ initial }: { initial: Profile | null }) {
         />
       </Field>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="State Code (2-digit)" htmlFor="state_code">
           <Input
             id="state_code"
@@ -178,7 +178,7 @@ export function SettingsForm({ initial }: { initial: Profile | null }) {
         />
       </Field>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Bank A/c No." htmlFor="bank_account_no">
           <Input
             id="bank_account_no"

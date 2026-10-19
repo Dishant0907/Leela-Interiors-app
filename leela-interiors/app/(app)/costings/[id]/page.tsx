@@ -73,7 +73,7 @@ export default async function CostingDetailPage({
     : null
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto">
       <FirstRunBanner show={!businessProfile?.gstin || !businessProfile?.business_name} />
       {/* Action bar — hidden in print */}
       <div className="mb-6 flex flex-col gap-4 print:hidden">
@@ -86,7 +86,7 @@ export default async function CostingDetailPage({
             Back to Costings
           </Link>
           <div className="text-right">
-            <h1 className="text-2xl font-semibold text-text-primary">
+            <h1 className="text-xl sm:text-2xl font-semibold text-text-primary">
               {costing.costing_number}
             </h1>
             {costing.client_name && (
@@ -94,17 +94,17 @@ export default async function CostingDetailPage({
             )}
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
           <Link
             href={`/costings/${id}/edit`}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-surface px-3 py-1.5 text-sm font-medium text-text-primary hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-surface px-3 py-2.5 sm:py-1.5 text-sm font-medium text-text-primary hover:bg-gray-100 transition-colors"
           >
             <Pencil className="h-3.5 w-3.5" />
             Edit
           </Link>
           <Link
             href={`/costings/new?duplicateFrom=${id}`}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-surface px-3 py-1.5 text-sm font-medium text-text-primary hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-surface px-3 py-2.5 sm:py-1.5 text-sm font-medium text-text-primary hover:bg-gray-100 transition-colors"
           >
             <Copy className="h-3.5 w-3.5" />
             Duplicate
@@ -127,13 +127,17 @@ export default async function CostingDetailPage({
       <RelatedDocuments costingId={id} current="costing" />
 
       {/* Costing document — full width when printing */}
-      <CostingPreview
-        formState={formState}
-        totals={totals}
-        costingNumber={costing.costing_number}
-        date={displayDate}
-        businessProfile={businessProfile}
-      />
+      <div className="overflow-x-auto print:overflow-visible">
+        <div className="min-w-140 md:min-w-0 print:min-w-0">
+          <CostingPreview
+            formState={formState}
+            totals={totals}
+            costingNumber={costing.costing_number}
+            date={displayDate}
+            businessProfile={businessProfile}
+          />
+        </div>
+      </div>
     </div>
   )
 }

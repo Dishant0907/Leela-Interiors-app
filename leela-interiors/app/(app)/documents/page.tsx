@@ -160,7 +160,7 @@ export default async function DocumentsPage({
   const isEmpty = folders.length === 0 && files.length === 0
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <h1 className="text-3xl font-semibold text-text-primary mb-5">Documents</h1>
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
@@ -239,7 +239,7 @@ function FileRow({ doc }: { doc: DocEntry }) {
     <li>
       <Link
         href={isCosting ? `/costings/${doc.id}` : `/invoices/${doc.id}`}
-        className="flex flex-wrap items-center gap-x-5 gap-y-1 rounded-xl border border-border bg-white px-5 py-4 transition-colors hover:bg-bg-surface"
+        className="flex flex-wrap items-center gap-x-5 gap-y-1 rounded-xl border border-border bg-white px-4 py-3 sm:px-5 sm:py-4 transition-colors hover:bg-bg-surface"
       >
         <Icon className="h-9 w-9 shrink-0 text-text-muted" strokeWidth={1.5} />
         <div className="min-w-0">
@@ -255,7 +255,7 @@ function FileRow({ doc }: { doc: DocEntry }) {
         <p className="ml-auto text-base text-text-muted">
           {doc.date ? formatDate(doc.date) : '—'}
         </p>
-        <p className="w-36 text-right text-lg font-semibold text-text-primary">
+        <p className="sm:w-36 text-right text-lg font-semibold text-text-primary">
           {formatINR(doc.total)}
         </p>
       </Link>

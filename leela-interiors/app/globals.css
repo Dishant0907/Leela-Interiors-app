@@ -149,6 +149,11 @@
     }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    }
+  a, button, [role="button"], select, input, label {
+    touch-action: manipulation;
     }
   html {
     @apply font-sans;

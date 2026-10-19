@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { CostingForm } from '@/components/costing/CostingForm'
 import { CostingPreview } from '@/components/costing/CostingPreview'
+import { LivePreviewPane } from '@/components/costing/LivePreviewPane'
 import { calculateTotals } from '@/lib/costing'
 import { GST_RATE } from '@/lib/constants'
 import type { CostingFormState, BusinessProfile } from '@/types/costing'
@@ -64,8 +65,8 @@ export default function EditCostingPage() {
 
   return (
     <div className="flex h-full min-h-screen">
-      {/* Left: form (60%) */}
-      <div className="w-3/5 overflow-y-auto">
+      {/* Form (full width on mobile, 60% on lg+) */}
+      <div className="w-full min-w-0 overflow-y-auto lg:w-3/5">
         <CostingForm
           onUpdate={setPreviewState}
           initialState={initialState}
@@ -73,15 +74,10 @@ export default function EditCostingPage() {
         />
       </div>
 
-      {/* Right: live preview (40%) */}
-      <div className="w-2/5 border-l border-border bg-gray-100 overflow-y-auto">
-        <div className="sticky top-0 max-h-screen overflow-y-auto p-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-3">Live Preview</p>
-          <div className="shadow-sm rounded overflow-hidden">
-            <CostingPreview formState={previewState} totals={totals} businessProfile={businessProfile} />
-          </div>
-        </div>
-      </div>
+      {/* Live preview: side pane on lg+, overlay on mobile */}
+      <LivePreviewPane>
+        <CostingPreview formState={previewState} totals={totals} businessProfile={businessProfile} />
+      </LivePreviewPane>
     </div>
   )
 }

@@ -22,8 +22,8 @@ export default async function ClientsPage() {
   }))
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold text-text-primary mb-6">Clients</h1>
+    <div className="p-4 sm:p-6">
+      <h1 className="text-xl sm:text-2xl font-semibold text-text-primary mb-4 sm:mb-6">Clients</h1>
       <ClientSearch clients={clientsWithCount} />
     </div>
   )

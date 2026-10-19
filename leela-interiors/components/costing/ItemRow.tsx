@@ -35,6 +35,10 @@ interface ItemRowProps {
   suggestions?: MasterItemSuggestion[]
 }
 
+function MobileLabel({ children }: { children: React.ReactNode }) {
+  return <span className="mb-1 block text-[11px] font-medium text-text-muted sm:hidden">{children}</span>
+}
+
 export function ItemRow({ item, index, onChange, onRemove, suggestions = [] }: ItemRowProps) {
   const [open, setOpen] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -62,12 +66,16 @@ export function ItemRow({ item, index, onChange, onRemove, suggestions = [] }: I
   }
 
   return (
-    <div className="grid grid-cols-[28px_1fr_80px_76px_60px_92px_92px_32px] gap-2 items-center">
-      <span className="text-xs text-text-muted text-right tabular-nums">{index + 1}</span>
+    <div className="grid grid-cols-2 gap-2 items-end rounded-lg border border-border p-3 sm:grid-cols-[28px_1fr_80px_76px_60px_92px_92px_32px] sm:items-center sm:rounded-none sm:border-0 sm:p-0">
+      <span className="col-span-2 text-xs font-medium text-text-muted tabular-nums sm:col-span-1 sm:text-right">
+        <span className="sm:hidden">Item </span>{index + 1}
+      </span>
 
       {/* Description with autocomplete */}
-      <div className="relative">
+      <div className="relative col-span-2 sm:col-span-1">
+        <MobileLabel>Description</MobileLabel>
         <Input
+          className="h-10 sm:h-8"
           placeholder="Item description"
           value={item.description}
           onChange={e => onChange('description', e.target.value)}
@@ -83,7 +91,7 @@ export function ItemRow({ item, index, onChange, onRemove, suggestions = [] }: I
                 <button
                   type="button"
                   onMouseDown={() => selectSuggestion(s)}
-                  className="w-full flex items-center justify-between px-3 py-2 hover:bg-accent/10 text-left"
+                  className="w-full flex items-center justify-between px-3 py-3 sm:py-2 hover:bg-accent/10 text-left"
                 >
                   <span className="text-text-primary truncate">{s.name}</span>
                   <div className="flex items-center gap-2 ml-3 shrink-0">
@@ -98,52 +106,70 @@ export function ItemRow({ item, index, onChange, onRemove, suggestions = [] }: I
       </div>
 
       {/* HSN/SAC */}
-      <Input
-        placeholder="HSN/SAC"
-        value={item.hsn_sac}
-        onChange={e => onChange('hsn_sac', e.target.value)}
-        spellCheck={false}
-        maxLength={8}
-        className="text-center font-mono text-xs"
-      />
+      <div>
+        <MobileLabel>HSN/SAC</MobileLabel>
+        <Input
+          placeholder="HSN/SAC"
+          value={item.hsn_sac}
+          onChange={e => onChange('hsn_sac', e.target.value)}
+          spellCheck={false}
+          maxLength={8}
+          className="h-10 text-center font-mono text-xs sm:h-8"
+        />
+      </div>
 
       {/* Unit */}
-      <select
-        value={item.unit || DEFAULT_UNIT}
-        onChange={e => onChange('unit', e.target.value)}
-        className="h-8 rounded-lg border border-input bg-transparent px-1.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 transition-colors"
-      >
-        {UNITS.map(u => (
-          <option key={u} value={u}>{UNIT_LABELS[u]}</option>
-        ))}
-      </select>
+      <div>
+        <MobileLabel>Unit</MobileLabel>
+        <select
+          value={item.unit || DEFAULT_UNIT}
+          onChange={e => onChange('unit', e.target.value)}
+          className="h-10 w-full rounded-lg border border-input bg-transparent px-1.5 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 transition-colors sm:h-8 sm:text-xs"
+        >
+          {UNITS.map(u => (
+            <option key={u} value={u}>{UNIT_LABELS[u]}</option>
+          ))}
+        </select>
+      </div>
 
-      <Input
-        type="number"
-        min="0"
-        step="any"
-        placeholder="0"
-        value={item.qty}
-        onChange={e => onChange('qty', e.target.value)}
-        className="text-right"
-      />
-      <Input
-        type="number"
-        min="0"
-        step="any"
-        placeholder="0"
-        value={item.rate}
-        onChange={e => onChange('rate', e.target.value)}
-        className="text-right"
-      />
-      <div className="h-8 rounded-lg border border-input bg-muted/50 flex items-center justify-end px-2.5 text-sm text-text-muted tabular-nums">
-        {item.amount > 0 ? formatINR(item.amount) : '—'}
+      <div>
+        <MobileLabel>Qty</MobileLabel>
+        <Input
+          type="number"
+          inputMode="decimal"
+          min="0"
+          step="any"
+          placeholder="0"
+          value={item.qty}
+          onChange={e => onChange('qty', e.target.value)}
+          className="h-10 text-right sm:h-8"
+        />
+      </div>
+      <div>
+        <MobileLabel>Rate (₹)</MobileLabel>
+        <Input
+          type="number"
+          inputMode="decimal"
+          min="0"
+          step="any"
+          placeholder="0"
+          value={item.rate}
+          onChange={e => onChange('rate', e.target.value)}
+          className="h-10 text-right sm:h-8"
+        />
+      </div>
+      <div>
+        <MobileLabel>Amount (₹)</MobileLabel>
+        <div className="h-10 rounded-lg border border-input bg-muted/50 flex items-center justify-end px-2.5 text-sm text-text-muted tabular-nums sm:h-8">
+          {item.amount > 0 ? formatINR(item.amount) : '—'}
+        </div>
       </div>
       <Button
         variant="ghost"
         size="icon"
         onClick={onRemove}
-        className="text-text-muted hover:text-destructive"
+        aria-label="Remove row"
+        className="h-10 w-10 justify-self-end text-text-muted hover:text-destructive sm:h-8 sm:w-8"
       >
         <Trash2 className="h-4 w-4" />
       </Button>

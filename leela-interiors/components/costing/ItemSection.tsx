@@ -17,14 +17,14 @@ interface ItemSectionProps {
 
 export function ItemSection({ section, items, masterItems = [], onAdd, onRemove, onChange }: ItemSectionProps) {
   return (
-    <section className="rounded-xl bg-bg-surface border border-border p-5 space-y-3">
+    <section className="rounded-xl bg-bg-surface border border-border p-4 sm:p-5 space-y-3">
       <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
         {SECTION_LABELS[section]}
       </h2>
 
       {items.length > 0 && (
         <div className="space-y-2">
-          <div className="grid grid-cols-[28px_1fr_80px_76px_60px_92px_92px_32px] gap-2 px-1">
+          <div className="hidden sm:grid grid-cols-[28px_1fr_80px_76px_60px_92px_92px_32px] gap-2 px-1">
             <span />
             <span className="text-xs text-text-muted font-medium">Description</span>
             <span className="text-xs text-text-muted font-medium text-center">HSN/SAC</span>
@@ -47,7 +47,7 @@ export function ItemSection({ section, items, masterItems = [], onAdd, onRemove,
         </div>
       )}
 
-      <Button variant="outline" size="sm" onClick={onAdd}>
+      <Button variant="outline" size="sm" onClick={onAdd} className="max-sm:h-10 max-sm:w-full">
         <Plus className="h-3.5 w-3.5" />
         Add Row
       </Button>

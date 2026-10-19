@@ -37,8 +37,8 @@ export default async function ClientDetailPage({
   ])
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <div className="flex items-start justify-between mb-6">
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto">
+      <div className="flex items-start justify-between gap-3 mb-6">
         <div>
           <Link href="/clients" className="text-xs text-text-muted hover:underline">
             ← Clients
@@ -55,7 +55,7 @@ export default async function ClientDetailPage({
         {!costings || costings.length === 0 ? (
           <p className="text-sm text-text-muted">No costings linked.</p>
         ) : (
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl border border-border overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-bg-surface border-b border-border">
                 <tr>
@@ -106,7 +106,7 @@ export default async function ClientDetailPage({
         {!invoices || invoices.length === 0 ? (
           <p className="text-sm text-text-muted">No invoices linked.</p>
         ) : (
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl border border-border overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-bg-surface border-b border-border">
                 <tr>

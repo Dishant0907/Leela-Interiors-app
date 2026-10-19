@@ -80,6 +80,8 @@ Update this file whenever the current phase, active feature, or implementation s
 
 * Documents screen (`/documents`, 2026-10-18): file-explorer style navigation (big folder tiles, breadcrumb + Back, URL params year/month/client) over costings + invoices filed Year → Month → Client; sidebar link added. Read-only, no schema changes.
 
+* Mobile UI/UX pass (2026-10-19): viewport export + theme colour; sidebar became an off-canvas drawer below `md` with a mobile top bar and bottom tab bar (components/layout/app-shell.tsx, sidebar.tsx, back-button.tsx); costing form stacks below `lg` with the preview in a full-screen overlay (components/costing/LivePreviewPane.tsx) and `ItemRow` renders as a card below `sm`; list pages (costings, invoices, factory orders, clients, dashboard) show cards below `md` and tables from `md`; factory order editor shows per-item cards below `md`; costing/invoice previews scroll horizontally on phones; Button/Input grow to 40px below `sm`; remaining forms/grids got breakpoints. Not yet checked on a real device or in print preview.
+
 ## Open Questions
 
 * Should "Duplicate" also appear as a row action on the costings list page (`app/(app)/costings/page.tsx`), in addition to the detail-page button? Raised 2026-09-10, unanswered.

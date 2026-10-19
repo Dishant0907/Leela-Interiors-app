@@ -144,7 +144,7 @@ export function PaymentStages({ invoiceId, grandTotal, initialPayments }: Props)
               </div>
 
               {recorded ? (
-                <div className="grid grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 text-sm">
                   <div>
                     <p className="text-text-muted text-xs mb-0.5">Amount Received</p>
                     <p className="text-text-primary font-medium">{formatINR(recorded.amount)}</p>
@@ -173,7 +173,7 @@ export function PaymentStages({ invoiceId, grandTotal, initialPayments }: Props)
                       placeholder={String(Math.round(expected))}
                       value={form.amount}
                       onChange={(e) => updateForm(key, { amount: e.target.value })}
-                      className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
+                      className="w-full rounded-md border border-border bg-background px-3 py-2.5 sm:py-1.5 text-base sm:text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
                     />
                   </div>
                   <div>
@@ -182,7 +182,7 @@ export function PaymentStages({ invoiceId, grandTotal, initialPayments }: Props)
                       type="date"
                       value={form.paidAt}
                       onChange={(e) => updateForm(key, { paidAt: e.target.value })}
-                      className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
+                      className="w-full rounded-md border border-border bg-background px-3 py-2.5 sm:py-1.5 text-base sm:text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
                     />
                   </div>
                   <div>
@@ -192,14 +192,14 @@ export function PaymentStages({ invoiceId, grandTotal, initialPayments }: Props)
                       placeholder="e.g. cheque no."
                       value={form.notes}
                       onChange={(e) => updateForm(key, { notes: e.target.value })}
-                      className="w-full rounded-md border border-border bg-background px-3 py-1.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
+                      className="w-full rounded-md border border-border bg-background px-3 py-2.5 sm:py-1.5 text-base sm:text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
                     />
                   </div>
                   <div className="sm:col-span-3 flex items-center gap-3">
                     <button
                       onClick={() => save(key)}
                       disabled={form.saving}
-                      className="px-4 py-1.5 rounded-md bg-brand text-white text-sm font-medium hover:bg-brand/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2.5 sm:py-1.5 rounded-md bg-brand text-white text-sm font-medium hover:bg-brand/90 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {form.saving ? 'Saving…' : 'Mark as Paid'}
                     </button>

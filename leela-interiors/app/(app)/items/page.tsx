@@ -12,7 +12,7 @@ export default async function ItemsPage() {
     .order('name')
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <h1 className="text-2xl font-semibold text-text-primary mb-6">Item Master</h1>
       <ItemsManager initialItems={items ?? []} />
     </div>

@@ -39,6 +39,15 @@ const EXTRAS: Record<FactorySection, ExtraField[]> = {
 const CELL = 'h-7 px-1.5 text-sm'
 const TH = 'px-1.5 py-2 text-left text-xs font-medium uppercase tracking-wider text-text-muted whitespace-nowrap'
 
+function MField({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block space-y-1 text-[11px] font-medium text-text-muted">
+      {label}
+      {children}
+    </label>
+  )
+}
+
 function newItem(section: FactorySection): FactoryOrderItem {
   return {
     id: crypto.randomUUID(),
@@ -256,7 +265,7 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
         </label>
         <div className="space-y-1 text-xs font-medium text-text-muted md:col-span-2">
           Drawing file (PDF / PNG / JPG, max 20 MB)
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {drawingName && (
               <>
                 <a href={`/api/factory-orders/${order.id}/drawing`} target="_blank" rel="noreferrer" className="text-sm text-text-primary underline">
@@ -301,7 +310,77 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
               </Button>
             </div>
             {sectionItems.length > 0 && (
-              <div className="overflow-x-auto">
+              <>
+              {/* Mobile: one card per item */}
+              <div className="space-y-3 p-3 md:hidden">
+                {sectionItems.map((item, idx) => (
+                  <div key={item.id} className="space-y-3 rounded-lg border border-border p-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-text-muted">Item {idx + 1}</span>
+                      <div className="flex items-center">
+                        <button type="button" aria-label="Move up" className="flex h-10 w-10 items-center justify-center text-text-muted" onClick={() => move(item.id, -1)}>
+                          <ArrowUp className="h-4 w-4" />
+                        </button>
+                        <button type="button" aria-label="Move down" className="flex h-10 w-10 items-center justify-center text-text-muted" onClick={() => move(item.id, 1)}>
+                          <ArrowDown className="h-4 w-4" />
+                        </button>
+                        <button type="button" aria-label="Delete row" className="flex h-10 w-10 items-center justify-center text-text-muted" onClick={() => setItems((p) => p.filter((i) => i.id !== item.id))}>
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                    <MField label="Description">
+                      <Input value={item.description} onChange={(e) => updateItem(item.id, { description: e.target.value })} />
+                    </MField>
+                    <div className="grid grid-cols-4 gap-2">
+                      {(['width', 'depth', 'height'] as const).map((dim) => (
+                        <MField key={dim} label={dim === 'width' ? 'W' : dim === 'depth' ? 'D' : 'H'}>
+                          <Input
+                            inputMode="decimal"
+                            value={item[dim] ?? ''}
+                            onChange={(e) => updateItem(item.id, { [dim]: toNumber(e.target.value) })}
+                          />
+                        </MField>
+                      ))}
+                      <MField label="Qty">
+                        <Input
+                          inputMode="decimal"
+                          value={item.qty}
+                          onChange={(e) => updateItem(item.id, { qty: toNumber(e.target.value) ?? 0 })}
+                        />
+                      </MField>
+                    </div>
+                    {showSqft && (
+                      <p className="text-xs text-text-muted">Sqft: <span className="text-sm text-text-primary">{itemSqft(item) ?? '—'}</span></p>
+                    )}
+                    <div className="grid grid-cols-2 gap-2">
+                      {(['material', 'finish', 'hardware'] as const).map((f) => (
+                        <MField key={f} label={f.charAt(0).toUpperCase() + f.slice(1)}>
+                          <Input value={item[f]} onChange={(e) => updateItem(item.id, { [f]: e.target.value })} />
+                        </MField>
+                      ))}
+                      {extras.map((x) => (
+                        <MField key={x.key} label={x.label}>
+                          <Input
+                            value={item.meta[x.key] ?? ''}
+                            onChange={(e) =>
+                              updateMeta(item.id, {
+                                [x.key]: x.numeric ? (toNumber(e.target.value) ?? undefined) : e.target.value,
+                              })
+                            }
+                          />
+                        </MField>
+                      ))}
+                    </div>
+                    <MField label="Remarks">
+                      <Input value={item.remarks} onChange={(e) => updateItem(item.id, { remarks: e.target.value })} />
+                    </MField>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop: table */}
+              <div className="hidden overflow-x-auto md:block">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-border">
@@ -387,6 +466,7 @@ export function FactoryOrderEditor({ order, initialItems, exportName }: Props) {
                   </tbody>
                 </table>
               </div>
+              </>
             )}
           </div>
         )

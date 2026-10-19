@@ -81,7 +81,7 @@ export function ClientEditForm({ client }: { client: Client }) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="block text-xs font-medium text-text-muted mb-1">Name</label>
           <input

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatINR, formatDate } from '@/lib/format'
-import { DashboardSearch } from './DashboardSearch'
+import { DashboardSearch, CostingCardList } from './DashboardSearch'
 
 export const dynamic = 'force-dynamic'
 
@@ -75,11 +75,11 @@ export default async function DashboardPage({
   const outstandingAmount = unpaidGrandTotal - paymentsTotal
 
   return (
-    <div className="p-6 space-y-8">
-      <h1 className="text-2xl font-semibold text-text-primary">Dashboard</h1>
+    <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
+      <h1 className="text-xl sm:text-2xl font-semibold text-text-primary">Dashboard</h1>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
         <SummaryCard
           label="Costings This Month"
           value={String(costingsThisMonth ?? 0)}
@@ -125,7 +125,7 @@ export default async function DashboardPage({
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-border bg-bg-surface p-5">
+    <div className="rounded-xl border border-border bg-bg-surface p-4 sm:p-5">
       <p className="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
         {label}
       </p>
@@ -144,7 +144,9 @@ type CostingRow = {
 
 function RecentCostingsTable({ costings }: { costings: CostingRow[] }) {
   return (
-    <div className="rounded-xl border border-border overflow-hidden">
+    <>
+    <CostingCardList costings={costings} />
+    <div className="hidden rounded-xl border border-border overflow-hidden md:block">
       <table className="w-full text-sm">
         <thead className="bg-bg-surface border-b border-border">
           <tr>
@@ -191,5 +193,6 @@ function RecentCostingsTable({ costings }: { costings: CostingRow[] }) {
         </tbody>
       </table>
     </div>
+    </>
   )
 }

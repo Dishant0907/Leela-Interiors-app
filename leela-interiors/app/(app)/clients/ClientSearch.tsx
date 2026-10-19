@@ -17,7 +17,7 @@ type Client = {
 }
 
 const inputCls =
-  'w-full rounded-md border border-border bg-white px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent'
+  'w-full rounded-md border border-border bg-white px-3 py-2.5 text-base sm:py-2 sm:text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent'
 
 export function ClientSearch({ clients }: { clients: Client[] }) {
   const router = useRouter()
@@ -90,9 +90,9 @@ export function ClientSearch({ clients }: { clients: Client[] }) {
           placeholder="Search by name or phone…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full max-w-sm rounded-md border border-border bg-white px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full max-w-sm rounded-md border border-border bg-white px-3 py-2.5 text-base sm:py-2 sm:text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
         />
-        <Button size="sm" onClick={openModal} className="shrink-0 flex items-center gap-1.5">
+        <Button size="sm" onClick={openModal} className="shrink-0 flex items-center gap-1.5 max-sm:h-10">
           <Plus size={14} />
           New Client
         </Button>
@@ -103,7 +103,30 @@ export function ClientSearch({ clients }: { clients: Client[] }) {
           <p className="text-text-muted text-sm">No clients found.</p>
         </div>
       ) : (
-        <div className="rounded-xl border border-border overflow-hidden">
+        <>
+        {/* Mobile: card list */}
+        <ul className="space-y-3 md:hidden">
+          {filtered.map((c) => (
+            <li key={c.id}>
+              <Link
+                href={`/clients/${c.id}`}
+                className="block rounded-xl border border-border bg-bg-surface p-4 active:bg-bg-base"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="truncate font-medium text-text-primary">{c.name}</span>
+                  <span className="shrink-0 text-xs text-text-muted">
+                    {c.costingCount} costing{c.costingCount === 1 ? '' : 's'}
+                  </span>
+                </div>
+                {c.phone && <p className="mt-1 text-sm text-text-muted">{c.phone}</p>}
+                {c.address && <p className="mt-0.5 truncate text-sm text-text-muted">{c.address}</p>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Desktop: table */}
+        <div className="hidden rounded-xl border border-border overflow-hidden md:block">
           <table className="w-full text-sm">
             <thead className="bg-bg-surface border-b border-border">
               <tr>
@@ -163,20 +186,22 @@ export function ClientSearch({ clients }: { clients: Client[] }) {
             </tbody>
           </table>
         </div>
+        </>
       )}
 
       {/* New Client Modal */}
       {showModal && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          className="fixed inset-0 z-70 flex items-end justify-center bg-black/40 sm:items-center"
           onClick={(e) => { if (e.target === e.currentTarget) setShowModal(false) }}
         >
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 p-6">
+          <div className="bg-white rounded-t-xl shadow-xl w-full max-w-md max-h-[90dvh] overflow-y-auto p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:rounded-xl sm:mx-4 sm:p-6">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-base font-semibold text-text-primary">New Client</h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-text-muted hover:text-text-primary transition-colors"
+                aria-label="Close"
+                className="flex h-10 w-10 -mr-2 items-center justify-center text-text-muted hover:text-text-primary transition-colors"
               >
                 <X size={16} />
               </button>
@@ -228,10 +253,10 @@ export function ClientSearch({ clients }: { clients: Client[] }) {
             {error && <p className="mt-3 text-xs text-red-600">{error}</p>}
 
             <div className="flex justify-end gap-2 mt-6">
-              <Button variant="outline" size="sm" onClick={() => setShowModal(false)}>
+              <Button variant="outline" size="sm" className="max-sm:h-10" onClick={() => setShowModal(false)}>
                 Cancel
               </Button>
-              <Button size="sm" onClick={handleCreate} disabled={saving}>
+              <Button size="sm" className="max-sm:h-10" onClick={handleCreate} disabled={saving}>
                 {saving ? 'Creating…' : 'Create Client'}
               </Button>
             </div>

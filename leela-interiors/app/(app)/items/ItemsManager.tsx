@@ -189,9 +189,10 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
           {/* Inline add form row */}
           {addingSection === section && (
             <div className="border-b border-border">
-              <div className="grid grid-cols-[1fr_90px_80px_130px_96px] gap-3 px-5 py-3 items-center bg-accent/5">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-[1fr_90px_80px_130px_96px] px-5 py-3 items-center bg-accent/5">
                 <Input
                   placeholder="Item name"
+                  className="col-span-2 md:col-span-1"
                   value={addName}
                   onChange={e => setAddName(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleAdd()}
@@ -225,7 +226,7 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
                   onKeyDown={e => e.key === 'Enter' && handleAdd()}
                   className="text-right"
                 />
-                <div className="flex gap-1 justify-end">
+                <div className="flex gap-1 justify-end col-span-2 md:col-span-1">
                   <Button size="sm" onClick={handleAdd} disabled={addSaving}>
                     {addSaving ? '…' : <><Check className="h-3.5 w-3.5" /> Confirm</>}
                   </Button>
@@ -244,7 +245,7 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
             <p className="px-5 py-4 text-sm text-text-muted">No items yet.</p>
           ) : (
             <div className="divide-y divide-border">
-              <div className="grid grid-cols-[1fr_90px_80px_130px_80px_96px] gap-4 px-5 py-2 text-xs font-medium text-text-muted">
+              <div className="hidden md:grid grid-cols-[1fr_90px_80px_130px_80px_96px] gap-4 px-5 py-2 text-xs font-medium text-text-muted">
                 <span>Name</span>
                 <span className="text-center">HSN/SAC</span>
                 <span className="text-center">Unit</span>
@@ -256,14 +257,14 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
               {grouped[section].map(item => (
                 <div
                   key={item.id}
-                  className="grid grid-cols-[1fr_90px_80px_130px_80px_96px] gap-4 px-5 py-3 items-center"
+                  className="grid grid-cols-2 gap-3 md:grid-cols-[1fr_90px_80px_130px_80px_96px] md:gap-4 px-5 py-3 items-center"
                 >
                   {editingId === item.id ? (
                     <>
                       <Input
                         value={editState.name}
                         onChange={e => setEditState(s => ({ ...s, name: e.target.value }))}
-                        className="h-8"
+                        className="h-8 col-span-2 md:col-span-1"
                         autoFocus
                         spellCheck
                       />
@@ -293,8 +294,8 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
                         className="h-8 text-right"
                         onKeyDown={e => e.key === 'Enter' && saveEdit(item.id)}
                       />
-                      <span />
-                      <div className="flex gap-1 justify-end">
+                      <span className="hidden md:block" />
+                      <div className="flex gap-1 justify-end col-span-2 md:col-span-1">
                         <Button
                           size="icon"
                           variant="ghost"
@@ -318,7 +319,7 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
                   ) : (
                     <>
                       <span
-                        className={`text-sm ${
+                        className={`col-span-2 md:col-span-1 text-sm ${
                           !item.active ? 'text-text-muted line-through' : 'text-text-primary'
                         }`}
                       >
@@ -336,7 +337,7 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
                       <div className="flex justify-center">
                         <button
                           onClick={() => toggleActive(item)}
-                          className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                          className={`relative inline-flex h-5 w-9 before:absolute before:-inset-3 before:content-[''] items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                             item.active ? 'bg-green-500' : 'bg-gray-300'
                           }`}
                           title={item.active ? 'Deactivate' : 'Activate'}
@@ -349,7 +350,7 @@ export function ItemsManager({ initialItems }: { initialItems: MasterItem[] }) {
                           />
                         </button>
                       </div>
-                      <div className="flex justify-end">
+                      <div className="flex justify-end col-span-2 md:col-span-1">
                         <Button
                           size="sm"
                           variant="outline"

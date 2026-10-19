@@ -13,8 +13,8 @@ export default async function InvoicesPage() {
     .order('invoice_date', { ascending: false })
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 sm:p-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <h1 className="text-2xl font-semibold text-text-primary">Invoices</h1>
       </div>
 
@@ -26,7 +26,37 @@ export default async function InvoicesPage() {
           </p>
         </div>
       ) : (
-        <div className="rounded-xl border border-border overflow-hidden">
+        <>
+        {/* Mobile: card list */}
+        <ul className="space-y-3 md:hidden">
+          {invoices.map((inv) => {
+            const clientName =
+              (inv.costings as unknown as { client_name: string | null } | null)?.client_name ?? null
+            return (
+              <li key={inv.id}>
+                <Link
+                  href={`/invoices/${inv.id}`}
+                  className="block rounded-xl border border-border bg-bg-surface p-4 active:bg-bg-base"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-medium text-text-primary">{inv.invoice_number}</span>
+                    <StatusBadge status={inv.status} />
+                  </div>
+                  <p className="mt-1 truncate text-sm text-text-primary">
+                    {clientName || <span className="text-text-muted italic">—</span>}
+                  </p>
+                  <div className="mt-2 flex items-center justify-between text-sm">
+                    <span className="text-text-muted">{inv.invoice_date ? formatDate(inv.invoice_date) : '—'}</span>
+                    <span className="font-medium text-text-primary">{formatINR(Number(inv.grand_total))}</span>
+                  </div>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+
+        {/* Desktop: table */}
+        <div className="hidden rounded-xl border border-border overflow-hidden md:block">
           <table className="w-full text-sm">
             <thead className="bg-bg-surface border-b border-border">
               <tr>
@@ -90,6 +120,7 @@ export default async function InvoicesPage() {
             </tbody>
           </table>
         </div>
+        </>
       )}
     </div>
   )

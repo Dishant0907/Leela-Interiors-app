@@ -71,7 +71,7 @@ export default async function GstReportPage({
   }))
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <h1 className="text-2xl font-semibold text-text-primary mb-1">GST Report</h1>
       <p className="text-sm text-text-muted mb-6">Monthly summary of invoices for GST filing.</p>
       <Suspense>

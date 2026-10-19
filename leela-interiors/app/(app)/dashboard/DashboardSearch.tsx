@@ -42,19 +42,19 @@ export function DashboardSearch({ initialQuery, initialResults }: Props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex gap-2 max-w-lg">
+      <form onSubmit={handleSubmit} role="search" className="flex gap-2 max-w-lg">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted pointer-events-none" />
           <input
             value={value}
             onChange={handleChange}
             placeholder="Search by client name or costing number…"
-            className="w-full pl-9 pr-4 py-2 rounded-lg border border-border bg-bg-surface text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-ring"
+            className="w-full pl-9 pr-4 py-2.5 sm:py-2 text-base sm:text-sm rounded-lg border border-border bg-bg-surface text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
         <button
           type="submit"
-          className="px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors"
+          className="px-4 py-2.5 sm:py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent-hover transition-colors"
         >
           Search
         </button>
@@ -76,9 +76,38 @@ export function DashboardSearch({ initialQuery, initialResults }: Props) {
   )
 }
 
+// Mobile card list shared by the dashboard's recent costings and search results
+export function CostingCardList({ costings }: { costings: CostingRow[] }) {
+  return (
+    <ul className="space-y-3 md:hidden">
+      {costings.map((c) => (
+        <li key={c.id}>
+          <Link
+            href={`/costings/${c.id}`}
+            className="block rounded-xl border border-border bg-bg-surface p-4 active:bg-bg-base"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-medium text-text-primary">{c.costing_number ?? '—'}</span>
+              <span className="font-medium text-text-primary">{formatINR(Number(c.grand_total ?? 0))}</span>
+            </div>
+            <div className="mt-1 flex items-center justify-between gap-2 text-sm">
+              <span className="truncate text-text-primary">
+                {c.client_name ?? <span className="text-text-muted italic">—</span>}
+              </span>
+              <span className="shrink-0 text-text-muted">{c.created_at ? formatDate(c.created_at) : '—'}</span>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 function SearchResultsTable({ costings }: { costings: CostingRow[] }) {
   return (
-    <div className="rounded-xl border border-border overflow-hidden">
+    <>
+    <CostingCardList costings={costings} />
+    <div className="hidden rounded-xl border border-border overflow-hidden md:block">
       <table className="w-full text-sm">
         <thead className="bg-bg-surface border-b border-border">
           <tr>
@@ -125,5 +154,6 @@ function SearchResultsTable({ costings }: { costings: CostingRow[] }) {
         </tbody>
       </table>
     </div>
+    </>
   )
 }

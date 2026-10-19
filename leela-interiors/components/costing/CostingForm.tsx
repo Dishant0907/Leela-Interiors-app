@@ -320,10 +320,10 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-5">
+    <div className="max-w-3xl mx-auto p-4 sm:p-6 space-y-5">
       {/* Page header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-text-primary">{costingId ? 'Edit Costing' : 'New Costing'}</h1>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h1 className="text-xl sm:text-2xl font-semibold text-text-primary">{costingId ? 'Edit Costing' : 'New Costing'}</h1>
         <div className="flex items-center gap-3">
           {error && <span className="text-sm text-destructive">{error}</span>}
           <Button onClick={handleSave} disabled={saving}>
@@ -344,9 +344,9 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
       )}
 
       {/* Client details */}
-      <section className="rounded-xl bg-bg-surface border border-border p-5 space-y-4">
+      <section className="rounded-xl bg-bg-surface border border-border p-4 sm:p-5 space-y-4">
         <SectionHeading>Client Details</SectionHeading>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Costing Date" htmlFor="costingDate">
             <Input
               id="costingDate"
@@ -435,9 +435,9 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
       </section>
 
       {/* Colour specification */}
-      <section className="rounded-xl bg-bg-surface border border-border p-5 space-y-4">
+      <section className="rounded-xl bg-bg-surface border border-border p-4 sm:p-5 space-y-4">
         <SectionHeading>Colour Specification</SectionHeading>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Field label="Top Shutter" htmlFor="shutterTop">
             <Input
               id="shutterTop"
@@ -485,9 +485,9 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
       ))}
 
       {/* Additional charges */}
-      <section className="rounded-xl bg-bg-surface border border-border p-5 space-y-4">
+      <section className="rounded-xl bg-bg-surface border border-border p-4 sm:p-5 space-y-4">
         <SectionHeading>Additional Charges &amp; GST</SectionHeading>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Freight & Fitting (₹)" htmlFor="freight">
             <Input
               id="freight"
@@ -516,11 +516,11 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
         {/* Transaction type toggle */}
         <div>
           <p className="text-xs font-medium text-text-muted mb-2">Transaction Type</p>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {(['intra', 'inter'] as TransactionType[]).map(type => (
               <label
                 key={type}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg border cursor-pointer text-sm transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 rounded-lg border cursor-pointer text-sm transition-colors ${
                   state.transactionType === type
                     ? 'border-ring bg-ring/10 text-text-primary font-medium'
                     : 'border-border text-text-muted hover:bg-accent/5'
@@ -542,7 +542,7 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
       </section>
 
       {/* Notes / Terms */}
-      <section className="rounded-xl bg-bg-surface border border-border p-5 space-y-3">
+      <section className="rounded-xl bg-bg-surface border border-border p-4 sm:p-5 space-y-3">
         <SectionHeading>Notes / Terms</SectionHeading>
         <textarea
           className="w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 resize-y min-h-40 transition-colors"
@@ -558,7 +558,7 @@ export function CostingForm({ onUpdate, initialState, costingId }: CostingFormPr
 
       {/* Bottom save */}
       <div className="flex justify-end pb-6">
-        <Button onClick={handleSave} disabled={saving} size="lg">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="max-sm:h-11 max-sm:w-full">
           <Save className="h-4 w-4" />
           {saving ? 'Saving…' : 'Save Costing'}
         </Button>

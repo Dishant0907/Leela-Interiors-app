@@ -107,11 +107,11 @@ export default async function InvoiceDetailPage({
     : null
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto">
       <FirstRunBanner show={!businessProfile?.gstin || !businessProfile?.business_name} />
       {/* Action bar — hidden in print */}
-      <div className="flex items-center justify-between mb-6 print:hidden">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 print:hidden">
+        <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/invoices"
             className="flex items-center gap-1 text-sm text-text-muted hover:text-text-primary transition-colors"
@@ -120,7 +120,7 @@ export default async function InvoiceDetailPage({
             Back to Invoices
           </Link>
           <div>
-            <h1 className="text-2xl font-semibold text-text-primary">
+            <h1 className="text-xl sm:text-2xl font-semibold text-text-primary">
               {invoice.invoice_number}
             </h1>
             {costing?.client_name && (
@@ -145,14 +145,16 @@ export default async function InvoiceDetailPage({
       <RelatedDocuments costingId={invoice.costing_id} current="invoice" />
 
       {/* Invoice document — full width when printing */}
-      <div className="shadow-sm rounded overflow-hidden print:shadow-none print:rounded-none">
-        <InvoicePreview
-          formState={formState}
-          totals={totals}
-          invoiceNumber={invoice.invoice_number}
-          date={displayDate}
-          businessProfile={businessProfile}
-        />
+      <div className="shadow-sm rounded overflow-x-auto print:overflow-visible print:shadow-none print:rounded-none">
+        <div className="min-w-140 md:min-w-0 print:min-w-0">
+          <InvoicePreview
+            formState={formState}
+            totals={totals}
+            invoiceNumber={invoice.invoice_number}
+            date={displayDate}
+            businessProfile={businessProfile}
+          />
+        </div>
       </div>
 
       <PaymentStages

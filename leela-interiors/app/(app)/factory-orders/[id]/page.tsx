@@ -35,7 +35,7 @@ export default async function FactoryOrderPage({ params }: { params: Promise<{ i
   const typedOrder = order as FactoryOrder
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <div className="mb-6 flex items-center justify-between gap-3">
         <Link href="/factory-orders" className="flex items-center gap-1 text-sm text-text-muted transition-colors hover:text-text-primary">
           <ArrowLeft className="h-4 w-4" />
